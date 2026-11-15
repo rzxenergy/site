@@ -299,6 +299,17 @@
         /* Aparelhos com "reduzir movimento" ativado: o carrossel continua, só que bem mais lento */
         @media (prefers-reduced-motion: reduce) { .brand-track { animation-duration: 120s; } }
     </style>
+<style id="rzx-sx">
+#sx-stage .sx-sh{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#71717a}
+#sx-stage .sx-rp{background:#fff;border:1px solid #e4e4e7;color:#3f3f46;border-radius:99px;font-weight:700;font-size:12px;font-family:inherit;padding:5px 12px;cursor:pointer;text-transform:none;letter-spacing:0}
+#sx-stage .sx-tk{text-align:center;position:relative;margin-top:2px}#sx-stage .sx-tk small{display:block;font-size:12px;color:#71717a}
+#sx-stage .sx-tk b{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(32px,8vw,46px);font-weight:800;color:#123c84;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
+#sx-stage #sx-sun{will-change:transform}
+.sx-pn .sx-pc{fill:#e4e4e7;transition:fill .5s}.sx-pn .sx-pd{fill:#cbd5e1;transition:fill .5s}.sx-pn.on .sx-pc{fill:url(#sxp)}.sx-pn.on .sx-pd{fill:#0b2552}.sx-pl{stroke:rgba(255,255,255,.35);stroke-width:.8;fill:none}
+.sx-coin{position:absolute;left:50%;top:34px;width:26px;height:26px;margin-left:-13px;border-radius:50%;background:#facc15;color:#7a5b00;font-weight:800;font-size:10px;line-height:26px;text-align:center;box-shadow:inset 0 0 0 2px #eab308;animation:sxcn 1.1s ease-out forwards;pointer-events:none}
+@keyframes sxcn{0%{transform:translate(0,12px) scale(.6);opacity:0}20%{opacity:1}100%{transform:translate(var(--dx,0),-80px) scale(1);opacity:0}}
+@media(prefers-reduced-motion:reduce){.sx-coin{display:none}}
+</style>
 <style id="rzx-fx">
 /* RZX-FX:START */
 .wd{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
@@ -537,13 +548,13 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                     <div class="lg:col-span-7 reveal active">
                         <div class="spotlight-card rounded-2xl p-6 sm:p-7 shadow-xl">
                             <!-- RZX-FX:START -->
-                            <div class="mb-6 rounded-xl bg-[#f4f4f5] border border-zinc-200 px-3 pt-3 pb-2" aria-hidden="true">
-                                <svg viewBox="0 0 600 150" class="w-full h-auto">
+                            <div id="sx-stage" class="mb-6 rounded-xl bg-[#f4f4f5] border border-zinc-200 px-3 pt-3 pb-4 relative overflow-hidden">
+                                <div class="sx-sh"><span>Veja 1 ano de usina</span><span id="sx-mo" aria-hidden="true">Jan</span><button type="button" id="sx-rp" class="sx-rp">↻ Rever</button></div>
+                                <svg viewBox="0 0 600 150" class="w-full h-auto" aria-hidden="true"><defs><radialGradient id="sxg"><stop offset="0" stop-color="#fff6c2"/><stop offset=".45" stop-color="#facc15"/><stop offset="1" stop-color="#facc15" stop-opacity="0"/></radialGradient><linearGradient id="sxp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a5fc4"/><stop offset="1" stop-color="#0d2d66"/></linearGradient></defs>
                                     <path d="M40 104 A260 90 0 0 1 560 104" fill="none" stroke="#d4d4d8" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round"/>
-                                    <path class="fx-prog" id="fx-prog" pathLength="1" d="M40 104 A260 90 0 0 1 560 104" fill="none" stroke="#123c84" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 1"/>
-                                    <g class="fx-sun" id="fx-sun"><circle r="24" fill="#facc15" opacity=".25"/><circle r="11" fill="#facc15"/></g>
-                                    <g id="fx-panels"></g>
-                                </svg>
+                                    <path id="sx-prog" pathLength="1" d="M40 104 A260 90 0 0 1 560 104" fill="none" stroke="#123c84" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 1"/>
+                                    <g id="sx-sun"><circle r="30" fill="url(#sxg)"/><circle r="11" fill="#facc15"/></g><g id="sx-pans"></g></svg>
+                                <div class="sx-tk" id="sx-tkw"><small>Você já teria economizado</small><b id="sx-tk">R$ 0</b></div>
                             </div>
                             <!-- RZX-FX:END -->
                             <!-- Seletor de Perfil de Consumo -->
@@ -671,46 +682,58 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
     </section>
 
         <!-- Condições de Pagamento e Análise da Conta de Luz -->
-    <section id="pagamento" class="py-12 md:py-16 border-t border-zinc-200 bg-[#f4f4f5]">
+    <section id="pagamento" class="py-8 md:py-12 border-t border-zinc-200 bg-[#f4f4f5]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl reveal">
                 <span class="text-xs font-bold uppercase tracking-widest text-[#123c84]">Condições de Pagamento</span>
                 <h2 data-plain class="font-display font-bold text-2xl sm:text-3xl tracking-tight mt-2 text-zinc-950">
                     Comece a economizar com parcelas que cabem no seu bolso.
                 </h2>
-                <p class="text-zinc-700 mt-3 text-base leading-relaxed">
+                <p class="text-zinc-700 mt-2 text-base leading-relaxed">
                     Opções flexíveis para você tirar o projeto do papel sem pesar no orçamento. Fale com a nossa equipe e descubra a melhor condição para o seu caso.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-6 mt-6 md:mt-8">
-                <div class="spotlight-card rounded-2xl p-5 reveal">
-                    <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
+            <div class="grid md:grid-cols-3 gap-3 md:gap-4 mt-4 md:mt-6">
+                <div class="spotlight-card rounded-2xl p-4 reveal">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 shrink-0 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
                     </div>
-                    <div class="font-display font-extrabold text-2xl sm:text-3xl text-[#123c84] mt-4 tracking-tight">até 21x</div>
-                    <h3 class="font-display font-bold text-lg text-zinc-950 mt-1">No cartão de crédito</h3>
-                    <p class="text-sm text-zinc-700 mt-2 leading-relaxed">Parcele o seu sistema solar no cartão de crédito em até 21 vezes.</p>
+                        <div class="min-w-0">
+                            <div class="font-display font-extrabold text-xl sm:text-2xl text-[#123c84] tracking-tight leading-none">até 21x</div>
+                            <h3 class="font-display font-bold text-base text-zinc-950 mt-1 leading-tight">No cartão de crédito</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-700 mt-3 leading-snug">Parcele o seu sistema solar no cartão de crédito em até 21 vezes.</p>
                 </div>
-                <div class="spotlight-card rounded-2xl p-5 reveal">
-                    <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
+                <div class="spotlight-card rounded-2xl p-4 reveal">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 shrink-0 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6"/><path d="M5 10v8M9 10v8M15 10v8M19 10v8"/><path d="M3 21h18"/></svg>
                     </div>
-                    <div class="font-display font-extrabold text-2xl sm:text-3xl text-[#123c84] mt-4 tracking-tight">até 120x</div>
-                    <h3 class="font-display font-bold text-lg text-zinc-950 mt-1">Financiamento</h3>
-                    <p class="text-sm text-zinc-700 mt-2 leading-relaxed">Financie o seu projeto em até 120 parcelas, com o prazo que você escolher, ótimo valor de parcela e todas as garantias do sistema.</p>
+                        <div class="min-w-0">
+                            <div class="font-display font-extrabold text-xl sm:text-2xl text-[#123c84] tracking-tight leading-none">até 120x</div>
+                            <h3 class="font-display font-bold text-base text-zinc-950 mt-1 leading-tight">Financiamento</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-700 mt-3 leading-snug">Financie o seu projeto em até 120 parcelas, com o prazo que você escolher, ótimo valor de parcela e todas as garantias do sistema.</p>
                 </div>
-                <div class="spotlight-card rounded-2xl p-5 reveal">
-                    <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
+                <div class="spotlight-card rounded-2xl p-4 reveal">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 shrink-0 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
                     </div>
-                    <div class="font-display font-extrabold text-2xl sm:text-3xl text-[#123c84] mt-4 tracking-tight">3 meses</div>
-                    <h3 class="font-display font-bold text-lg text-zinc-950 mt-1">De carência</h3>
-                    <p class="text-sm text-zinc-700 mt-2 leading-relaxed">Você tem 3 meses de carência para começar a pagar as parcelas do financiamento.</p>
+                        <div class="min-w-0">
+                            <div class="font-display font-extrabold text-xl sm:text-2xl text-[#123c84] tracking-tight leading-none">3 meses</div>
+                            <h3 class="font-display font-bold text-base text-zinc-950 mt-1 leading-tight">De carência</h3>
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-700 mt-3 leading-snug">Você tem 3 meses de carência para começar a pagar as parcelas do financiamento.</p>
                 </div>
             </div>
 
-            <div class="mt-6 spotlight-card rounded-2xl p-5 sm:p-6 reveal">
+            <div class="mt-3 md:mt-4 spotlight-card rounded-2xl p-4 sm:p-5 reveal">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex flex-wrap md:flex-nowrap items-center md:items-start gap-x-4 gap-y-3">
                         <div class="w-10 h-10 shrink-0 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
@@ -726,7 +749,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                     
                 </div>
             </div>
-            <p class="mt-4 text-[11px] leading-relaxed text-zinc-500">Financiamento sujeito à análise e aprovação de crédito. Prazos, taxas e condições variam conforme a instituição financeira e o perfil do cliente.</p>
+            <p class="mt-3 text-[11px] leading-relaxed text-zinc-500">Financiamento sujeito à análise e aprovação de crédito. Prazos, taxas e condições variam conforme a instituição financeira e o perfil do cliente.</p>
 
             <div class="relative overflow-hidden mt-6 rounded-2xl bg-[#123c84] p-6 sm:p-8 reveal">
                 <div class="absolute -top-24 -right-16 w-[420px] h-[260px] bg-white/10 blur-[100px] rounded-full pointer-events-none"></div>
@@ -1604,14 +1627,18 @@ const sim=$('simulador');
 if(sim&&!reduce){const o=new IntersectionObserver(es=>{if(es[0].isIntersecting){o.disconnect();setTimeout(replay,250);}},{threshold:.35});o.observe(sim);}
 
 /* 2. Sol e painéis acompanham o slider */
-const slider=$('bill-slider'),sun=$('fx-sun'),prog=$('fx-prog'),pg=$('fx-panels');
-if(slider&&sun&&pg){
- const N=12;for(let i=0;i<N;i++){const r=document.createElementNS('http://www.w3.org/2000/svg','rect');r.setAttribute('x',40+i*44);r.setAttribute('y',118);r.setAttribute('width',36);r.setAttribute('height',24);r.setAttribute('rx',3);r.setAttribute('class','fx-p');r.style.setProperty('--i',i);pg.appendChild(r);}
- const ps=pg.querySelectorAll('.fx-p');
- const upd=()=>{const t=Math.sqrt(Math.max(0,Math.min(1,(slider.value-slider.min)/(slider.max-slider.min))));
-  const a=Math.PI-t*Math.PI/2;sun.style.transform=`translate(${300+260*Math.cos(a)}px,${104-90*Math.sin(a)}px)`;
-  prog.style.strokeDasharray=`${(t*.5).toFixed(3)} 1`;const on=2+Math.round(t*10);ps.forEach((r,i)=>r.classList.toggle('on',i<on));};
- slider.addEventListener('input',upd);upd();}
+const sx={bill:$('bill-slider'),sun:$('sx-sun'),prog:$('sx-prog'),tk:$('sx-tk'),mo:$('sx-mo'),w:$('sx-tkw'),rp:$('sx-rp'),pans:$('sx-pans')};
+if(sx.bill&&sx.sun&&sx.pans){
+ const NS='http://www.w3.org/2000/svg',MO=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],ps=[];
+ for(let i=0;i<12;i++){const g=document.createElementNS(NS,'g');g.setAttribute('transform','translate('+(54+i*44)+',116) skewX(-16)');g.setAttribute('class','sx-pn');g.innerHTML='<rect y="5" width="34" height="24" rx="2" class="sx-pd"/><rect width="34" height="24" rx="2" class="sx-pc"/><path d="M11.3 0V24M22.6 0V24M0 12H34" class="sx-pl"/>';sx.pans.appendChild(g);ps.push(g);}
+ const rm=matchMedia('(prefers-reduced-motion:reduce)').matches,fmt=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+ let raf=0,rt=0,ys=0;
+ const T=()=>Math.sqrt(Math.max(0,Math.min(1,(sx.bill.value-sx.bill.min)/(sx.bill.max-sx.bill.min))));
+ const paint=p=>{const a=Math.PI-p*Math.PI;sx.sun.setAttribute('transform','translate('+(300+260*Math.cos(a))+','+(104-90*Math.sin(a))+')');sx.prog.style.strokeDasharray=p.toFixed(3)+' 1';sx.tk.textContent=fmt(ys*p);sx.mo.textContent=p>=1?'1 ano completo':MO[Math.floor(p*12)];};
+ const coin=()=>{const e=document.createElement('i');e.className='sx-coin';e.textContent='R$';e.style.setProperty('--dx',(Math.random()*80-40)+'px');sx.w.appendChild(e);setTimeout(()=>e.remove(),1100);};
+ const play=()=>{cancelAnimationFrame(raf);if(rm){paint(1);return;}const t0=performance.now();let lm=-1;const st=t=>{const k=Math.min(1,(t-t0)/6500),m=Math.floor(k*12);if(m!==lm&&k<1){lm=m;coin();}paint(k);if(k<1)raf=requestAnimationFrame(st);};raf=requestAnimationFrame(st);};
+ const upd=u=>{ys=parseFloat(sx.bill.value)*.93*12;const on=2+Math.round(T()*10);ps.forEach((g,i)=>g.classList.toggle('on',i<on));cancelAnimationFrame(raf);paint(1);clearTimeout(rt);rt=setTimeout(play,u?450:700);};
+ sx.bill.addEventListener('input',()=>upd(true));sx.rp.addEventListener('click',play);upd(false);}
 
 if(!reduce){
 /* 4. Parallax do hero (rolagem em qualquer aparelho; mouse só no computador) */
@@ -1680,28 +1707,7 @@ new MutationObserver(()=>{num();box.classList.remove('fx-swap');void box.offsetW
 /* RZX-FX:END */
 </script>
 <script id="rzx-sim-js">
-/* RZX-FX:START */
-(function(){
-const $=i=>document.getElementById(i),sl=$('bill-slider'),svg=$('fx-prog').ownerSVGElement,wrap=svg.parentElement,NS='http://www.w3.org/2000/svg';
-const mk=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
-const T=()=>Math.sqrt(Math.max(0,Math.min(1,(sl.value-sl.min)/(sl.max-sl.min))));
-const defs=()=>{let d=svg.querySelector('defs');if(!d){d=mk('defs',{});svg.prepend(d);}return d;};
 
-const gr=mk('linearGradient',{id:'fxPan',x1:0,y1:0,x2:1,y2:1});gr.append(mk('stop',{offset:0,'stop-color':'#2a5fc4'}),mk('stop',{offset:1,'stop-color':'#0d2d66'}));defs().appendChild(gr);
-const cp=mk('clipPath',{id:'fxClip'});cp.appendChild(mk('rect',{width:34,height:24,rx:2}));defs().appendChild(cp);
-const g=mk('g',{});svg.appendChild(g);g.appendChild(mk('ellipse',{cx:300,cy:147,rx:272,ry:3,fill:'rgba(13,45,102,.14)'}));
-const ps=[];
-for(let i=0;i<12;i++){const p=mk('g',{transform:`translate(${54+i*44},116) skewX(-16)`,class:'fx-pp'});
- p.appendChild(mk('rect',{y:5,width:34,height:24,rx:2,class:'fx-pd'}));p.appendChild(mk('rect',{width:34,height:24,rx:2,class:'fx-pc'}));
- [11.3,22.6].forEach(x=>p.appendChild(mk('line',{x1:x,x2:x,y1:0,y2:24,stroke:'rgba(255,255,255,.35)','stroke-width':.8})));
- p.appendChild(mk('line',{x1:0,x2:34,y1:12,y2:12,stroke:'rgba(255,255,255,.35)','stroke-width':.8}));
- const c=mk('g',{'clip-path':'url(#fxClip)'});c.appendChild(mk('rect',{x:0,y:-2,width:11,height:30,fill:'rgba(255,255,255,.6)',class:'fx-ps',transform:'skewX(-20)'}));p.appendChild(c);
- g.appendChild(p);ps.push(p);}
-const upd=()=>{const on=2+Math.round(T()*10);ps.forEach((p,i)=>{const was=p.classList.contains('lit'),now=i<on;p.classList.toggle('lit',now);
- if(now&&!was){p.style.setProperty('--d',i*40+'ms');p.classList.remove('pop');void p.getBoundingClientRect();p.classList.add('pop');p.querySelector('.fx-ps').style.animationDelay=i*40+'ms';}});};
-sl.addEventListener('input',upd);upd();
-})();
-/* RZX-FX:END */
 </script>
 <script id="rzx-opt-js">
 (function(){
