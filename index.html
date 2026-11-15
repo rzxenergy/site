@@ -230,12 +230,30 @@
 .fx-photo.in::after{transform:scaleY(0)}
 /* RZX-FX:END */
 </style>
-<style id="rzx-fx-mag">
+<style id="rzx-fx-proc">
 /* RZX-FX:START */
-.fx-mag{overflow:hidden;isolation:isolate}
-.fx-mag::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(130px circle at var(--bx,50%) var(--by,50%),rgba(255,255,255,.28),transparent 70%)}
-.fx-mag.fx-lt::after{background:radial-gradient(130px circle at var(--bx,50%) var(--by,50%),rgba(18,60,132,.16),transparent 70%)}
-.fx-mag.fx-on::after{opacity:1}
+#step-detail-box{position:relative;overflow:hidden}
+#step-detail-box>div{position:relative;z-index:1}
+#fx-bignum{position:absolute;right:.5rem;bottom:-.18em;font:800 clamp(6rem,16vw,10rem)/1 'Plus Jakarta Sans',sans-serif;letter-spacing:-.04em;pointer-events:none;z-index:0;transition:opacity .4s}
+#processo .step-btn>div:first-child{transition:background .3s,color .3s,box-shadow .4s,border-color .3s}
+#processo .step-btn>div:first-child svg{display:block}
+#step-deliverable{display:flex;align-items:center;gap:.5rem}
+#step-deliverable::before{content:"";flex:none;width:18px;height:18px;border-radius:50%;background:#10b981 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
+@keyframes fxUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.fx-swap>div{animation:fxUp .5s cubic-bezier(.16,1,.3,1) both}.fx-swap>div:last-of-type{animation-delay:.08s}
+@media(prefers-reduced-motion:reduce){.fx-swap>div{animation:none}}
+#processo .spotlight-card{--spotlight-color:rgba(250,204,21,.09);border:1px solid transparent!important;box-shadow:0 30px 60px -28px rgba(18,60,132,.28);
+background:radial-gradient(520px circle at 0% 0%,rgba(18,60,132,.06),transparent 60%) padding-box,linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,rgba(18,60,132,.5),rgba(250,204,21,.6) 55%,rgba(18,60,132,.15)) border-box!important}
+#processo .step-btn{border-color:#e4e4e7!important}
+#processo .step-btn:hover{border-color:rgba(250,204,21,.7)!important}
+#processo .step-btn[class*="bg-[#123c84]/10"]{background:rgba(250,204,21,.1)!important;border-color:rgba(250,204,21,.65)!important}
+#processo .step-btn>div:first-child{background:#fff!important;border:1px solid #e4e4e7!important;color:#123c84!important;box-shadow:none}
+#processo .step-btn[class*="bg-[#123c84]/10"]>div:first-child{background:#facc15!important;border-color:#facc15!important;color:#0d2d66!important;box-shadow:0 8px 22px -6px rgba(250,204,21,.7)}
+.step-btn.lit>div:first-child{box-shadow:0 0 0 5px rgba(250,204,21,.22)}
+#processo .step-btn.lit[class*="bg-[#123c84]/10"]>div:first-child{box-shadow:0 8px 22px -6px rgba(250,204,21,.7),0 0 0 5px rgba(250,204,21,.22)}
+.fx-line{background:#e4e4e7}.fx-line i{background:linear-gradient(90deg,#123c84,#facc15)}
+#step-detail-box>div:last-child>div{background:#f8fafc!important}
+#fx-bignum{color:#123c84;opacity:.06}
 /* RZX-FX:END */
 </style>
 </head>
@@ -449,7 +467,7 @@
                                 <div class="p-3.5 rounded-xl bg-[#f4f4f5] border border-zinc-200/80">
                                     <div class="text-[11px] text-zinc-600">Potência Sugerida</div>
                                     <div class="font-display font-bold text-lg sm:text-xl mt-1 text-zinc-950" id="system-kwp">
-                                        6,80 kWp
+                                        6,46 kWp
                                     </div>
                                 </div>
 
@@ -688,7 +706,7 @@
                             </div>
                             <div>
                                 <div class="text-[11px] text-zinc-500">Economia Estimada</div>
-                                <div class="font-display font-bold text-sm text-emerald-600">~R$ 1.210/mês</div>
+                                <div class="font-display font-bold text-sm text-emerald-600">~R$ 1.289/mês</div>
                             </div>
                         </div>
                     </div>
@@ -715,7 +733,7 @@
                             </div>
                             <div>
                                 <div class="text-[11px] text-zinc-500">Economia Estimada</div>
-                                <div class="font-display font-bold text-sm text-emerald-600">~R$ 3.203/mês</div>
+                                <div class="font-display font-bold text-sm text-emerald-600">~R$ 3.412/mês</div>
                             </div>
                         </div>
                     </div>
@@ -742,7 +760,7 @@
                             </div>
                             <div>
                                 <div class="text-[11px] text-zinc-500">Economia Estimada</div>
-                                <div class="font-display font-bold text-sm text-emerald-600">~R$ 356/mês</div>
+                                <div class="font-display font-bold text-sm text-emerald-600">~R$ 379/mês</div>
                             </div>
                         </div>
                     </div>
@@ -1187,7 +1205,7 @@
 
             let selectedProfile = 'Residencial';
             // Mesma conta para todos os perfis (o perfil só vai na mensagem do WhatsApp)
-            const avgTariff = 0.92;
+            const avgTariff = 0.98;
             const basePaybackMonths = 27;
 
             function formatBRL(value) {
@@ -1341,8 +1359,9 @@ function track(id,parse,fmt){const el=$(id);if(!el)return;let cur=parse(el.textC
  trk.push(()=>{if(reduce)return;const to=parse(el.textContent);if(!isNaN(to))go(0,to,el.textContent);});}
 const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
 const pBRL=s=>parseInt(s.replace(/\D/g,''),10);
-['bill-display','annual-savings','five-year-savings'].forEach(i=>track(i,pBRL,brl));
+['annual-savings','five-year-savings'].forEach(i=>track(i,pBRL,brl));
 track('system-kwp',s=>parseFloat(s.replace(/[^\d,]/g,'').replace(',','.')),v=>v.toFixed(2).replace('.',',')+' kWp');
+track('payback-estimate',s=>{const a=s.match(/(\d+)\s*ano/),m=s.match(/(\d+)\s*m[eê]s/);return a||m?(a?+a[1]:0)*12+(m?+m[1]:0):NaN;},v=>{const t=Math.round(v),y=Math.floor(t/12),m=t%12,ys=y===1?'1 ano':`${y} anos`,ms=m===1?'1 mês':`${m} meses`;return y===0?`~${ms}`:m===0?`~${ys}`:`~${ys} e ${ms}`;});
 const replay=()=>trk.forEach(f=>f());
 document.querySelectorAll('.profile-btn').forEach(b=>b.addEventListener('click',()=>setTimeout(replay,30)));
 const sim=$('simulador');
@@ -1421,30 +1440,16 @@ addEventListener('pageshow',e=>{if(e.persisted)arm();});
 })();
 /* RZX-FX:END */
 </script>
-<script id="rzx-fx-mag-js">
+<script id="rzx-fx-proc-js">
 /* RZX-FX:START */
 (function(){
-if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-const bs=[...document.querySelectorAll('a[href*="wa.me"],.hero-video-zone a[href="#servicos"]')]
- .filter(a=>/rounded-(xl|2xl|full)/.test(a.className)&&!a.closest('#mobile-menu'));
-bs.push(...[document.getElementById('modal-whatsapp')].filter(Boolean));
-bs.forEach(b=>{if(getComputedStyle(b).position==='static')b.style.position='relative';b.classList.add('fx-mag');if(/bg-white/.test(b.className))b.classList.add('fx-lt');b._on=false;});
-let ev=null,tk=false;
-const run=()=>{tk=false;const e=ev;if(!e)return;
- bs.forEach(b=>{const r=b.getBoundingClientRect();if(!r.width)return;
-  const dx=Math.max(r.left-e.clientX,0,e.clientX-r.right),dy=Math.max(r.top-e.clientY,0,e.clientY-r.bottom);
-  if(Math.hypot(dx,dy)<60){
-   const cx=r.left+r.width/2,cy=r.top+r.height/2,m=Math.min(12,r.height*.28);
-   const tx=Math.max(-m,Math.min(m,(e.clientX-cx)*.3)),ty=Math.max(-m,Math.min(m,(e.clientY-cy)*.3));
-   clearTimeout(b._t);b.style.transition='transform .18s ease-out,background-color .2s,box-shadow .2s';
-   b.style.transform=`translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0)`;
-   b.style.setProperty('--bx',(e.clientX-r.left)+'px');b.style.setProperty('--by',(e.clientY-r.top)+'px');
-   b.classList.add('fx-on');b._on=true;
-  }else if(b._on){b._on=false;b.classList.remove('fx-on');
-   b.style.transition='transform .7s cubic-bezier(.34,1.56,.64,1)';b.style.transform='';
-   b._t=setTimeout(()=>{b.style.transition='';},700);}
- });};
-addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;ev=e;if(!tk){tk=true;requestAnimationFrame(run);}});
+const I=['<path d="M9 4h6v3H9z"/><path d="M8 5.5H6a1 1 0 0 0-1 1V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6.5a1 1 0 0 0-1-1h-2"/><path d="M9 13l2 2 4-4"/>','<path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/>','<path d="M21 8l-9-5-9 5 9 5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>','<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/>','<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'];
+document.querySelectorAll('#steps-container .step-btn').forEach((b,i)=>{const c=b.querySelector('div');if(c&&I[i])c.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+I[i]+'</svg>';});
+const box=document.getElementById('step-detail-box'),tag=document.getElementById('step-tag'),ttl=document.getElementById('step-title');
+if(!box)return;
+const big=document.createElement('span');big.id='fx-bignum';big.setAttribute('aria-hidden','true');box.appendChild(big);
+const num=()=>{const m=(tag.textContent||'').match(/\d+/);big.textContent=m?m[0].padStart(2,'0'):'01';};num();
+new MutationObserver(()=>{num();box.classList.remove('fx-swap');void box.offsetWidth;box.classList.add('fx-swap');}).observe(ttl,{childList:true,characterData:true,subtree:true});
 })();
 /* RZX-FX:END */
 </script>
