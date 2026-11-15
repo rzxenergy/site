@@ -27,7 +27,6 @@
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -70,16 +69,6 @@
             --border-color: #e4e4e7;
             --spotlight-color: rgba(18, 60, 132, 0.08);
             --grid-line: rgba(18, 60, 132, 0.045);
-        }
-
-        html.dark {
-            --bg-primary: #09090b;
-            --bg-secondary: #111114;
-            --text-primary: #fafafa;
-            --text-secondary: #a1a1aa;
-            --border-color: #222226;
-            --spotlight-color: rgba(18, 60, 132, 0.22);
-            --grid-line: rgba(255, 255, 255, 0.03);
         }
 
         body {
@@ -154,10 +143,6 @@
             outline: none;
         }
 
-        html.dark input[type="range"].solar-slider {
-            background: #27272a;
-        }
-
         input[type="range"].solar-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -192,6 +177,8 @@
         .hero-video-zone .font-display.font-bold { color:#fff !important; }
         .hero-video-zone h1 span { background:none !important; -webkit-text-fill-color:#facc15 !important; color:#facc15 !important; }
         .hero-video-zone .text-xs.text-zinc-600 { color:rgba(255,255,255,.8) !important; }
+        .hero-video-zone h1, .hero-video-zone p, .hero-video-zone strong,
+        .hero-video-zone .font-display.font-bold, .hero-video-zone .text-xs.text-zinc-600 { text-shadow: 0 1px 14px rgba(0,0,0,.45); }
         .hero-video-zone .border-t { border-color:rgba(255,255,255,.25) !important; }
     </style>
 </head>
@@ -220,18 +207,6 @@
 
                 <!-- Ações do Header -->
                 <div class="flex items-center gap-3">
-                    <!-- Botão Alternar Tema (Dark/Light) -->
-                    <button id="theme-toggle" aria-label="Alternar tema" class="p-2.5 rounded-xl border border-white/20 bg-white/10 text-white hover:bg-white/20 transition-colors">
-                        <!-- Ícone Sol (visível no Dark Mode) -->
-                        <svg id="icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-                        </svg>
-                        <!-- Ícone Lua (visível no Light Mode) -->
-                        <svg id="icon-moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                    </button>
 
                     <!-- CTA WhatsApp Header -->
                     <a href="https://wa.me/5564992137886?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20RZX%20Energy%20e%20gostaria%20de%20solicitar%20um%20atendimento." target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-zinc-100 text-[#123c84] font-semibold text-sm transition-all shadow-md">
@@ -265,21 +240,21 @@
     </header>
 
     <!-- Seção Hero (Fundo Cinza Suave #f4f4f5 + Simulador em Caixa Branca #ffffff) -->
-    <section class="relative pt-20 pb-20 lg:pb-28 bg-[#f4f4f5] dark:bg-zinc-950 bg-grid-pattern overflow-hidden">
+    <section class="relative pt-20 pb-20 lg:pb-28 bg-[#f4f4f5] bg-grid-pattern overflow-hidden">
         <!-- Brilho radial azul sutil no fundo -->
-        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-[#123c84]/10 dark:bg-[#123c84]/20 blur-[130px] rounded-full pointer-events-none"></div>
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-[#123c84]/10 blur-[130px] rounded-full pointer-events-none"></div>
 
         <!-- VÍDEO DE FUNDO: começa abaixo do cabeçalho e termina na linha azul -->
         <div class="hero-video-zone relative overflow-hidden pt-12 lg:pt-20">
             <video class="absolute inset-0 w-full h-full object-cover pointer-events-none" autoplay muted loop playsinline preload="auto" poster="data:image/jpeg;base64,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" aria-hidden="true">
                 <source src="video_1.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/25 via-black/10 to-black/0 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 relative z-10">
             <!-- Bloco Principal do Hero -->
             <div class="max-w-3xl space-y-7 reveal active">
                 <!-- Badge de Localização e Status -->
-                <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 text-xs font-medium text-zinc-800 dark:text-zinc-300 shadow-sm">
+                <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-zinc-200 bg-white text-xs font-medium text-zinc-800 shadow-sm">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#123c84] opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-[#123c84]"></span>
@@ -287,12 +262,12 @@
                     <span>Engenharia Fotovoltaica em Caldas Novas e Região</span>
                 </div>
 
-                <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.4rem] tracking-tight leading-[1.12] text-zinc-950 dark:text-white">
+                <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.4rem] tracking-tight leading-[1.12] text-zinc-950">
                     Energia limpa com <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#0d2d66] via-[#123c84] to-[#1a4ca3]">engenharia de precisão</span> e máxima performance.
                 </h1>
 
-                <p class="text-base sm:text-lg text-zinc-700 dark:text-zinc-400 max-w-2xl leading-relaxed">
-                    A <strong class="text-zinc-950 dark:text-zinc-200 font-semibold">RZX Energy</strong> projeta, instala e mantém usinas solares de alta eficiência para residências, empresas e propriedades rurais — do dimensionamento técnico à homologação junto à Equatorial Goiás.
+                <p class="text-base sm:text-lg text-zinc-700 max-w-2xl leading-relaxed">
+                    A <strong class="text-zinc-950 font-semibold">RZX Energy</strong> projeta, instala e mantém usinas solares de alta eficiência para residências, empresas e propriedades rurais — do dimensionamento técnico à homologação junto à Equatorial Goiás.
                 </p>
 
                 <!-- Botões de Ação -->
@@ -304,24 +279,24 @@
                         </svg>
                     </a>
 
-                    <a href="#servicos" class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-950 dark:text-zinc-200 font-medium text-sm sm:text-base transition-all shadow-sm">
+                    <a href="#servicos" class="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-950 font-medium text-sm sm:text-base transition-all shadow-sm">
                         <span>Explorar Serviços</span>
                     </a>
                 </div>
 
                 <!-- Indicadores Rápidos -->
-                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-200 dark:border-zinc-800/80 max-w-lg">
+                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-zinc-200 max-w-lg">
                     <div>
-                        <div class="font-display font-bold text-2xl sm:text-3xl text-zinc-950 dark:text-white">Até 90%</div>
-                        <div class="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Redução na fatura</div>
+                        <div class="font-display font-bold text-2xl sm:text-3xl text-zinc-950">Até 90%</div>
+                        <div class="text-xs text-zinc-600 mt-0.5">Redução na fatura</div>
                     </div>
                     <div>
-                        <div class="font-display font-bold text-2xl sm:text-3xl text-zinc-950 dark:text-white">100%</div>
-                        <div class="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Homologado Equatorial</div>
+                        <div class="font-display font-bold text-2xl sm:text-3xl text-zinc-950">100%</div>
+                        <div class="text-xs text-zinc-600 mt-0.5">Homologado Equatorial</div>
                     </div>
                     <div>
-                        <div class="font-display font-bold text-2xl sm:text-3xl text-zinc-950 dark:text-white">Tier-1</div>
-                        <div class="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Equipamentos certificados</div>
+                        <div class="font-display font-bold text-2xl sm:text-3xl text-zinc-950">Tier-1</div>
+                        <div class="text-xs text-zinc-600 mt-0.5">Equipamentos certificados</div>
                     </div>
                 </div>
             </div>
@@ -337,20 +312,20 @@
             <div id="simulador" class="pt-14 scroll-mt-24">
                 <div class="grid lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-5 space-y-5 reveal active">
-                        <span class="text-xs font-bold uppercase tracking-widest text-[#123c84] dark:text-blue-400">Simulação Instantânea</span>
-                        <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-zinc-950 dark:text-white">
+                        <span class="text-xs font-bold uppercase tracking-widest text-[#123c84]">Simulação Instantânea</span>
+                        <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-zinc-950">
                             Descubra quanto você deixa de gastar todo ano.
                         </h2>
-                        <p class="text-zinc-700 dark:text-zinc-400 text-base leading-relaxed">
+                        <p class="text-zinc-700 text-base leading-relaxed">
                             Arraste o controle ao lado para informar o valor médio da sua conta de energia elétrica atual e veja uma estimativa realista de economia com a RZX Energy.
                         </p>
-                        <ul class="space-y-3 text-sm text-zinc-800 dark:text-zinc-300 pt-2">
+                        <ul class="space-y-3 text-sm text-zinc-800 pt-2">
                             <li class="flex items-center gap-2.5">
-                                <span class="w-5 h-5 rounded-full bg-[#123c84]/15 text-[#123c84] dark:text-blue-400 flex items-center justify-center text-xs font-bold">✓</span>
+                                <span class="w-5 h-5 rounded-full bg-[#123c84]/15 text-[#123c84] flex items-center justify-center text-xs font-bold">✓</span>
                                 <span>Cálculo baseado na irradiação solar média de Caldas Novas - GO</span>
                             </li>
                             <li class="flex items-center gap-2.5">
-                                <span class="w-5 h-5 rounded-full bg-[#123c84]/15 text-[#123c84] dark:text-blue-400 flex items-center justify-center text-xs font-bold">✓</span>
+                                <span class="w-5 h-5 rounded-full bg-[#123c84]/15 text-[#123c84] flex items-center justify-center text-xs font-bold">✓</span>
                                 <span>Envie sua simulação direto para nossa engenharia no WhatsApp</span>
                             </li>
                         </ul>
@@ -360,15 +335,15 @@
                         <div class="spotlight-card rounded-2xl p-7 sm:p-9 shadow-xl">
                             <!-- Seletor de Perfil de Consumo -->
                             <div class="mb-6">
-                                <span class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2.5">1. Selecione o perfil do imóvel:</span>
-                                <div class="grid grid-cols-3 gap-2 p-1 rounded-xl bg-[#f4f4f5] dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800" id="profile-selector">
-                                    <button type="button" data-profile="Residencial" data-tariff="0.92" data-base-months="27" class="profile-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-[#123c84] text-white shadow-sm transition-all">
+                                <span class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-2.5">1. Selecione o perfil do imóvel:</span>
+                                <div class="grid grid-cols-3 gap-2 p-1 rounded-xl bg-[#f4f4f5] border border-zinc-200" id="profile-selector">
+                                    <button type="button" data-profile="Residencial" class="profile-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-[#123c84] text-white shadow-sm transition-all">
                                         Residencial
                                     </button>
-                                    <button type="button" data-profile="Comercial" data-tariff="0.88" data-base-months="23" class="profile-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-all">
+                                    <button type="button" data-profile="Comercial" class="profile-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-medium text-zinc-700 hover:text-zinc-950 transition-all">
                                         Comercial
                                     </button>
-                                    <button type="button" data-profile="Rural" data-tariff="0.78" data-base-months="25" class="profile-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-all">
+                                    <button type="button" data-profile="Rural" class="profile-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-medium text-zinc-700 hover:text-zinc-950 transition-all">
                                         Rural / Agro
                                     </button>
                                 </div>
@@ -376,10 +351,10 @@
 
                             <div>
                                 <div class="flex flex-wrap items-baseline justify-between gap-2 mb-4">
-                                    <label for="bill-slider" class="text-sm font-medium text-zinc-800 dark:text-zinc-300">
+                                    <label for="bill-slider" class="text-sm font-medium text-zinc-800">
                                         2. Valor médio da conta de luz mensal:
                                     </label>
-                                    <div class="font-display font-extrabold text-3xl sm:text-4xl text-[#123c84] dark:text-blue-400" id="bill-display">
+                                    <div class="font-display font-extrabold text-3xl sm:text-4xl text-[#123c84]" id="bill-display">
                                         R$ 850
                                     </div>
                                 </div>
@@ -393,37 +368,37 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mt-8 pt-7 border-t border-zinc-200 dark:border-zinc-800">
-                                <div class="p-3.5 rounded-xl bg-[#f4f4f5] dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800">
-                                    <div class="text-[11px] text-zinc-600 dark:text-zinc-400">Economia Anual</div>
-                                    <div class="font-display font-bold text-lg sm:text-xl text-[#123c84] dark:text-blue-400 mt-1" id="annual-savings">
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mt-8 pt-7 border-t border-zinc-200">
+                                <div class="p-3.5 rounded-xl bg-[#f4f4f5] border border-zinc-200/80">
+                                    <div class="text-[11px] text-zinc-600">Economia Anual</div>
+                                    <div class="font-display font-bold text-lg sm:text-xl text-[#123c84] mt-1" id="annual-savings">
                                         R$ 9.486
                                     </div>
                                 </div>
 
-                                <div class="p-3.5 rounded-xl bg-[#f4f4f5] dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800">
-                                    <div class="text-[11px] text-zinc-600 dark:text-zinc-400">Potência Sugerida</div>
-                                    <div class="font-display font-bold text-lg sm:text-xl mt-1 text-zinc-950 dark:text-white" id="system-kwp">
+                                <div class="p-3.5 rounded-xl bg-[#f4f4f5] border border-zinc-200/80">
+                                    <div class="text-[11px] text-zinc-600">Potência Sugerida</div>
+                                    <div class="font-display font-bold text-lg sm:text-xl mt-1 text-zinc-950" id="system-kwp">
                                         6,80 kWp
                                     </div>
                                 </div>
 
-                                <div class="p-3.5 rounded-xl bg-[#f4f4f5] dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800">
-                                    <div class="text-[11px] text-zinc-600 dark:text-zinc-400">Retorno (Payback)</div>
-                                    <div class="font-display font-bold text-base sm:text-lg mt-1 text-emerald-600 dark:text-emerald-400 leading-tight" id="payback-estimate">
+                                <div class="p-3.5 rounded-xl bg-[#f4f4f5] border border-zinc-200/80">
+                                    <div class="text-[11px] text-zinc-600">Retorno (Payback)</div>
+                                    <div class="font-display font-bold text-base sm:text-lg mt-1 text-emerald-600 leading-tight" id="payback-estimate">
                                         ~2 anos e 3 meses
                                     </div>
                                 </div>
 
-                                <div class="p-3.5 rounded-xl bg-[#f4f4f5] dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800">
-                                    <div class="text-[11px] text-zinc-600 dark:text-zinc-400">Economia em 5 Anos</div>
-                                    <div class="font-display font-bold text-lg sm:text-xl mt-1 text-zinc-950 dark:text-white" id="five-year-savings">
+                                <div class="p-3.5 rounded-xl bg-[#f4f4f5] border border-zinc-200/80">
+                                    <div class="text-[11px] text-zinc-600">Economia em 5 Anos</div>
+                                    <div class="font-display font-bold text-lg sm:text-xl mt-1 text-zinc-950" id="five-year-savings">
                                         R$ 47.430
                                     </div>
                                 </div>
                             </div>
 
-                            <p class="mt-6 text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400">Valores estimados, sujeitos a estudo técnico e à análise da sua conta de energia. Os resultados reais podem variar.</p>
+                            <p class="mt-6 text-[11px] leading-relaxed text-zinc-500">Valores estimados, sujeitos a estudo técnico e à análise da sua conta de energia. Os resultados reais podem variar.</p>
 
                             <div class="mt-4">
                                 <a id="sim-whatsapp-btn" href="https://wa.me/5564992137886?text=Ol%C3%A1%20RZX%20Energy!%20Fiz%20uma%20simula%C3%A7%C3%A3o%20no%20site%20com%20conta%20m%C3%A9dia%20de%20R%24%20850%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-[#123c84] hover:bg-[#1a4ca3] text-white font-semibold text-sm sm:text-base transition-all shadow-lg shadow-[#123c84]/25">
@@ -453,105 +428,105 @@
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mt-12">
                 <!-- Card 1 -->
-                <div class="md:col-span-7 spotlight-card !bg-[#f4f4f5] dark:!bg-[#111114] rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer reveal service-trigger"
+                <div class="md:col-span-7 spotlight-card !bg-[#f4f4f5] rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer reveal service-trigger"
                      data-title="Projetos e Instalação Fotovoltaica"
                      data-badge="Turnkey • Chave na Mão"
                      data-desc="Desenvolvemos sistemas sob medida para residências de alto padrão, comércios, hotéis/condomínios e propriedades rurais em Caldas Novas e toda a região."
                      data-items="Estudo de sombreamento e irradiação solar local|Dimensionamento de inversores e módulos Tier-1|Estruturas de fixação certificadas para telhados ou solo|Instalação limpa dentro das normas NBR 5410 e NBR 16690">
                     <div>
                         <div class="flex items-center justify-between">
-                            <div class="w-12 h-12 rounded-xl bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84] dark:text-blue-400">
+                            <div class="w-12 h-12 rounded-xl bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                                 </svg>
                             </div>
-                            <span class="text-xs font-medium px-3 py-1 rounded-full bg-white dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300">Residencial • Comercial • Rural</span>
+                            <span class="text-xs font-medium px-3 py-1 rounded-full bg-white border border-zinc-200 text-zinc-700">Residencial • Comercial • Rural</span>
                         </div>
-                        <h3 class="font-display font-bold text-xl sm:text-2xl mt-6 text-zinc-950 dark:text-white">Projetos e Instalação Completa</h3>
-                        <p class="text-zinc-700 dark:text-zinc-400 text-sm sm:text-base mt-2.5 leading-relaxed">
+                        <h3 class="font-display font-bold text-xl sm:text-2xl mt-6 text-zinc-950">Projetos e Instalação Completa</h3>
+                        <p class="text-zinc-700 text-sm sm:text-base mt-2.5 leading-relaxed">
                             Soluções completas de geração própria de energia. Reduza drasticamente seus custos fixos com instalações seguras, acabamento impecável e monitoramento via aplicativo no celular.
                         </p>
                     </div>
-                    <div class="mt-8 pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-sm font-semibold text-[#123c84] dark:text-blue-400">
+                    <div class="mt-8 pt-4 border-t border-zinc-200 flex items-center justify-between text-sm font-semibold text-[#123c84]">
                         <span>Ver especificações técnicas</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="md:col-span-5 spotlight-card !bg-[#f4f4f5] dark:!bg-[#111114] rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer reveal service-trigger"
+                <div class="md:col-span-5 spotlight-card !bg-[#f4f4f5] rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer reveal service-trigger"
                      data-title="Limpeza Técnica Fotovoltaica"
                      data-badge="Performance Máxima"
                      data-desc="O acúmulo de poeira, fuligem e resíduos reduz significativamente a geração do seu sistema. Nossa limpeza técnica utiliza produtos neutros específicos e água desmineralizada para não agredir o vidro antirreflexo."
-                     data-items="Recuperação de até 25% na geração de energia|Escovas de cerdas macias específicas para painéis solares|Inspeção visual de microfissuras e pontos quentes|Relatório fotográfico antes e depois do serviço">
+                     data-items="Recuperação de até 32% na geração de energia|Escovas de cerdas macias específicas para painéis solares|Inspeção visual de microfissuras e pontos quentes|Relatório fotográfico antes e depois do serviço">
                     <div>
                         <div class="flex items-center justify-between">
-                            <div class="w-12 h-12 rounded-xl bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84] dark:text-blue-400">
+                            <div class="w-12 h-12 rounded-xl bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                                 </svg>
                             </div>
-                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-[#123c84]/10 text-[#123c84] dark:text-blue-400">+25% Eficiência</span>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-[#123c84]/10 text-[#123c84]">+32% Eficiência</span>
                         </div>
-                        <h3 class="font-display font-bold text-xl mt-6 text-zinc-950 dark:text-white">Limpeza Técnica Especializada</h3>
-                        <p class="text-zinc-700 dark:text-zinc-400 text-sm mt-2.5 leading-relaxed">
+                        <h3 class="font-display font-bold text-xl mt-6 text-zinc-950">Limpeza Técnica Especializada</h3>
+                        <p class="text-zinc-700 text-sm mt-2.5 leading-relaxed">
                             Higienização profissional com equipamentos adequados que protegem a garantia dos módulos e restauram a capacidade máxima de geração da sua usina.
                         </p>
                     </div>
-                    <div class="mt-8 pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-sm font-semibold text-[#123c84] dark:text-blue-400">
+                    <div class="mt-8 pt-4 border-t border-zinc-200 flex items-center justify-between text-sm font-semibold text-[#123c84]">
                         <span>Detalhes do procedimento</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="md:col-span-5 spotlight-card !bg-[#f4f4f5] dark:!bg-[#111114] rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer reveal service-trigger"
+                <div class="md:col-span-5 spotlight-card !bg-[#f4f4f5] rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer reveal service-trigger"
                      data-title="Manutenção Preventiva e Corretiva"
                      data-badge="Segurança & Continuidade"
                      data-desc="Garanta a longevidade do seu investimento e evite paradas inesperadas ou riscos elétricos com revisões periódicas executadas por técnicos qualificados."
                      data-items="Reaperto de conexões CC/CA e revisão de string box|Testes de tensão, corrente e aterramento|Diagnóstico e configuração de inversores e Wi-Fi|Atendimento corretivo ágil em Caldas Novas e região">
                     <div>
                         <div class="flex items-center justify-between">
-                            <div class="w-12 h-12 rounded-xl bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84] dark:text-blue-400">
+                            <div class="w-12 h-12 rounded-xl bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 </svg>
                             </div>
-                            <span class="text-xs font-medium px-3 py-1 rounded-full bg-white dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300">Preventiva & Corretiva</span>
+                            <span class="text-xs font-medium px-3 py-1 rounded-full bg-white border border-zinc-200 text-zinc-700">Preventiva & Corretiva</span>
                         </div>
-                        <h3 class="font-display font-bold text-xl mt-6 text-zinc-950 dark:text-white">Manutenção e Diagnóstico</h3>
-                        <p class="text-zinc-700 dark:text-zinc-400 text-sm mt-2.5 leading-relaxed">
+                        <h3 class="font-display font-bold text-xl mt-6 text-zinc-950">Manutenção e Diagnóstico</h3>
+                        <p class="text-zinc-700 text-sm mt-2.5 leading-relaxed">
                             Inspeção elétrica completa, reaperto de conectores, verificação de proteções (DPS/disjuntores) e solução rápida de falhas em sistemas já instalados.
                         </p>
                     </div>
-                    <div class="mt-8 pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-sm font-semibold text-[#123c84] dark:text-blue-400">
+                    <div class="mt-8 pt-4 border-t border-zinc-200 flex items-center justify-between text-sm font-semibold text-[#123c84]">
                         <span>Ver checklist técnico</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </div>
                 </div>
 
                 <!-- Card 4 -->
-                <div class="md:col-span-7 spotlight-card !bg-[#f4f4f5] dark:!bg-[#111114] rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer reveal service-trigger"
+                <div class="md:col-span-7 spotlight-card !bg-[#f4f4f5] rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer reveal service-trigger"
                      data-title="Homologação Técnica (Equatorial Goiás)"
                      data-badge="Regularização & ART"
                      data-desc="Cuidamos de toda a burocracia e documentação técnica exigida pela concessionária para aprovação do parecer de acesso e troca do medidor bidirecional."
                      data-items="Elaboração de projeto elétrico e memorial descritivo|Emissão de ART (Anotação de Responsabilidade Técnica)|Protocolo e acompanhamento direto junto à Equatorial Goiás|Solicitação de vistoria e ativação do sistema de compensação">
                     <div>
                         <div class="flex items-center justify-between">
-                            <div class="w-12 h-12 rounded-xl bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84] dark:text-blue-400">
+                            <div class="w-12 h-12 rounded-xl bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84]">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                 </svg>
                             </div>
-                            <span class="text-xs font-medium px-3 py-1 rounded-full bg-white dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300">Equatorial Goiás</span>
+                            <span class="text-xs font-medium px-3 py-1 rounded-full bg-white border border-zinc-200 text-zinc-700">Equatorial Goiás</span>
                         </div>
-                        <h3 class="font-display font-bold text-xl sm:text-2xl mt-6 text-zinc-950 dark:text-white">Homologação e Regularização Técnica</h3>
-                        <p class="text-zinc-700 dark:text-zinc-400 text-sm sm:text-base mt-2.5 leading-relaxed">
+                        <h3 class="font-display font-bold text-xl sm:text-2xl mt-6 text-zinc-950">Homologação e Regularização Técnica</h3>
+                        <p class="text-zinc-700 text-sm sm:text-base mt-2.5 leading-relaxed">
                             Processo 100% conduzido por engenharia habilitada. Elaboramos os diagramas unifilares, emitimos a ART e acompanhamos a aprovação junto à concessionária até a troca do medidor.
                         </p>
                     </div>
-                    <div class="mt-8 pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between text-sm font-semibold text-[#123c84] dark:text-blue-400">
+                    <div class="mt-8 pt-4 border-t border-zinc-200 flex items-center justify-between text-sm font-semibold text-[#123c84]">
                         <span>Ver etapas da homologação</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </div>
@@ -560,127 +535,17 @@
         </div>
     </section>
 
-    <!-- Seção de Monitoramento Inteligente / Telemetria em Tempo Real (Fundo Branco) -->
-    <section id="telemetria" class="py-24 relative border-t border-zinc-200 dark:border-zinc-900 bg-white dark:bg-zinc-950">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
-            <div class="grid lg:grid-cols-12 gap-10 items-center">
-                <div class="lg:col-span-6 space-y-5">
-                    <span class="text-xs font-bold uppercase tracking-widest text-[#123c84] dark:text-blue-400">Telemetria em Tempo Real</span>
-                    <h3 class="font-display font-bold text-2xl sm:text-3xl tracking-tight text-zinc-950 dark:text-white">
-                        Acompanhe a geração da sua usina diretamente pelo celular.
-                    </h3>
-                        <p class="text-zinc-700 dark:text-zinc-400 text-sm sm:text-base leading-relaxed">
-                            Todos os projetos instalados pela RZX Energy contam com monitoramento inteligente via aplicativo. Alterne o clima ao lado ou toque nas barras do gráfico para inspecionar a potência gerada ao longo do dia.
-                        </p>
-
-                        <!-- Botões de Simulação Climática Interativa -->
-                        <div class="inline-flex p-1 rounded-xl bg-[#f4f4f5] dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
-                            <button type="button" id="weather-sunny" class="weather-btn px-4 py-2 rounded-lg text-xs font-semibold bg-[#123c84] text-white shadow-sm transition-all flex items-center gap-1.5">
-                                <span>☀️ Céu Limpo (Caldas Novas)</span>
-                            </button>
-                            <button type="button" id="weather-cloudy" class="weather-btn px-4 py-2 rounded-lg text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-all flex items-center gap-1.5">
-                                <span>⛅ Parcialmente Nublado</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-6">
-                        <div class="spotlight-card !bg-[#f4f4f5] dark:!bg-[#111114] rounded-2xl p-6 sm:p-7 shadow-xl">
-                            <div class="flex items-center justify-between pb-5 border-b border-zinc-200 dark:border-zinc-800">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 flex items-center justify-center text-[#123c84] dark:text-blue-400">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                            <circle cx="12" cy="12" r="4"></circle>
-                                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <div class="text-xs font-medium text-zinc-600 dark:text-zinc-400" id="telemetry-condition">Condição: Irradiação Plena</div>
-                                        <div class="text-sm font-semibold text-zinc-950 dark:text-white">Usina Fotovoltaica RZX (10 kWp)</div>
-                                    </div>
-                                </div>
-                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84] dark:text-blue-400 text-xs font-semibold border border-[#123c84]/20">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                    Online
-                                </span>
-                            </div>
-
-                            <div class="py-6">
-                                <div class="flex items-baseline justify-between">
-                                    <div>
-                                        <span class="text-xs uppercase tracking-wider text-zinc-600 dark:text-zinc-400 font-medium" id="telemetry-label">Geração Estimada (Caldas Novas)</span>
-                                        <div class="font-display font-extrabold text-3xl sm:text-4xl mt-1 tracking-tight flex items-baseline gap-2 text-zinc-950 dark:text-white">
-                                            <span id="live-kwh">1.240</span>
-                                            <span class="text-base font-semibold text-[#123c84] dark:text-blue-400" id="live-unit">kWh / mês</span>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <span class="text-xs text-zinc-600 dark:text-zinc-400">Eficiência</span>
-                                        <div class="text-sm font-bold text-[#123c84] dark:text-blue-400 mt-1" id="live-efficiency">+98.4%</div>
-                                    </div>
-                                </div>
-
-                                <div class="mt-6 pt-4">
-                                    <div class="flex items-end justify-between gap-2 h-28" id="hero-bars">
-                                        <button type="button" data-hour="08:00" data-kw="3,8 kW" class="telemetry-bar w-full bg-zinc-200 dark:bg-zinc-800/80 rounded-t-md relative group h-[45%] hover:bg-[#123c84]/80 focus:bg-[#123c84] transition-all duration-500">
-                                            <span class="opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-semibold bg-zinc-900 text-white px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap bar-tip">3,8 kW</span>
-                                        </button>
-                                        <button type="button" data-hour="10:00" data-kw="6,9 kW" class="telemetry-bar w-full bg-zinc-200 dark:bg-zinc-800/80 rounded-t-md relative group h-[68%] hover:bg-[#123c84]/80 focus:bg-[#123c84] transition-all duration-500">
-                                            <span class="opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-semibold bg-zinc-900 text-white px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap bar-tip">6,9 kW</span>
-                                        </button>
-                                        <button type="button" data-hour="12:00" data-kw="9,6 kW" class="telemetry-bar w-full bg-[#123c84] rounded-t-md relative group h-[95%] shadow-lg shadow-[#123c84]/25 transition-all duration-500">
-                                            <span class="opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-semibold bg-zinc-900 text-white px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap bar-tip">9,6 kW</span>
-                                        </button>
-                                        <button type="button" data-hour="14:00" data-kw="9,1 kW" class="telemetry-bar w-full bg-[#123c84]/85 rounded-t-md relative group h-[90%] transition-all duration-500">
-                                            <span class="opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-semibold bg-zinc-900 text-white px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap bar-tip">9,1 kW</span>
-                                        </button>
-                                        <button type="button" data-hour="16:00" data-kw="5,8 kW" class="telemetry-bar w-full bg-zinc-200 dark:bg-zinc-800/80 rounded-t-md relative group h-[62%] hover:bg-[#123c84]/80 focus:bg-[#123c84] transition-all duration-500">
-                                            <span class="opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-semibold bg-zinc-900 text-white px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap bar-tip">5,8 kW</span>
-                                        </button>
-                                        <button type="button" data-hour="18:00" data-kw="2,4 kW" class="telemetry-bar w-full bg-zinc-200 dark:bg-zinc-800/80 rounded-t-md relative group h-[35%] hover:bg-[#123c84]/80 focus:bg-[#123c84] transition-all duration-500">
-                                            <span class="opacity-0 group-hover:opacity-100 group-focus:opacity-100 absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-semibold bg-zinc-900 text-white px-1.5 py-0.5 rounded transition-opacity whitespace-nowrap bar-tip">2,4 kW</span>
-                                        </button>
-                                    </div>
-                                    <div class="flex justify-between text-[11px] text-zinc-500 mt-2 font-mono">
-                                        <span>08:00</span>
-                                        <span id="telemetry-selected-info" class="text-[#123c84] dark:text-blue-400 font-semibold">12:00 (Pico: 9,6 kW)</span>
-                                        <span>18:00</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="pt-4 border-t border-zinc-200 dark:border-zinc-800 space-y-2.5 text-xs">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-zinc-600 dark:text-zinc-400">Módulos Fotovoltaicos</span>
-                                    <span class="font-semibold text-zinc-950 dark:text-white">Monocristalino Bifacial N-Type</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-zinc-600 dark:text-zinc-400">Homologação</span>
-                                    <span class="font-semibold text-[#123c84] dark:text-blue-400">Aprovado Equatorial Goiás</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-zinc-600 dark:text-zinc-400">Garantia de Performance</span>
-                                    <span class="font-semibold text-zinc-950 dark:text-white">25 Anos Linear</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Nova Seção: Obras Realizadas e Prova Social (Fundo Cinza Suave #f4f4f5 + Cards Brancos #ffffff) -->
-    <section id="obras" class="py-24 border-t border-zinc-200 dark:border-zinc-900 bg-[#f4f4f5] dark:bg-zinc-950/60">
+    <section id="obras" class="py-24 border-t border-zinc-200 bg-[#f4f4f5]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal">
                 <div class="max-w-2xl">
-                    <span class="text-xs font-bold uppercase tracking-widest text-[#123c84] dark:text-blue-400">Portfólio & Resultados</span>
-                    <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mt-2 text-zinc-950 dark:text-white">
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#123c84]">Portfólio & Resultados</span>
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mt-2 text-zinc-950">
                         Sistemas projetados e entregues em Caldas Novas e região.
                     </h2>
                 </div>
-                <div class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm text-xs font-semibold text-zinc-800 dark:text-zinc-200">
+                <div class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white border border-zinc-200 shadow-sm text-xs font-semibold text-zinc-800">
                     <span class="text-amber-500 text-sm">★★★★★</span>
                     <span>5.0 Avaliação de Clientes Locais</span>
                 </div>
@@ -691,81 +556,81 @@
                 <!-- Obra 1 -->
                 <div class="spotlight-card rounded-2xl p-6 flex flex-col justify-between reveal">
                     <div>
+                        <div class="-mx-6 -mt-6 mb-5 aspect-[4/3] overflow-hidden bg-zinc-200">
+                            <img src="obra-1.jpg" alt="Sistema solar residencial de alto padrão com 17 módulos de 620W" loading="lazy" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                        </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
-                            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84] dark:text-blue-400">Residencial Alto Padrão</span>
-                            <span class="text-xs font-mono font-bold text-zinc-950 dark:text-white">8,68 kWp</span>
+                            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84]">Residencial Alto Padrão</span>
+                            <span class="text-xs font-mono font-bold text-zinc-950">10,54 kWp</span>
                         </div>
-                        <h3 class="font-display font-bold text-lg text-zinc-950 dark:text-white">Residência Jardins di Roma • Caldas Novas</h3>
-                        <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">
-                            14 módulos monocristalinos de 620W com inversor string de alta eficiência e estrutura em alumínio anodizado oculta na platibanda.
+                        <h3 class="font-display font-bold text-lg text-zinc-950">Residência de Alto Padrão</h3>
+                        <p class="text-xs text-zinc-600 mt-1.5 leading-relaxed">
+                            17 módulos fotovoltaicos de 620W instalados com acabamento limpo e organizado.
                         </p>
-                        <div class="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+                        <div class="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-zinc-200">
                             <div>
-                                <div class="text-[11px] text-zinc-500">Geração Média</div>
-                                <div class="font-display font-bold text-sm text-zinc-950 dark:text-white">1.100 kWh/mês</div>
+                                <div class="text-[11px] text-zinc-500">Geração Estimada</div>
+                                <div class="font-display font-bold text-sm text-zinc-950">~1.315 kWh/mês</div>
                             </div>
                             <div>
-                                <div class="text-[11px] text-zinc-500">Economia Mensal</div>
-                                <div class="font-display font-bold text-sm text-emerald-600 dark:text-emerald-400">~R$ 1.010/mês</div>
+                                <div class="text-[11px] text-zinc-500">Economia Estimada</div>
+                                <div class="font-display font-bold text-sm text-emerald-600">~R$ 1.210/mês</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-5 pt-4 border-t border-zinc-200 dark:border-zinc-800/80 text-xs italic text-zinc-600 dark:text-zinc-400">
-                        "Instalação impecável, nenhum fio aparente e homologação na Equatorial saiu antes do prazo previsto." — <strong class="not-italic text-zinc-900 dark:text-zinc-200">Carlos E.</strong>
                     </div>
                 </div>
 
                 <!-- Obra 2 -->
                 <div class="spotlight-card rounded-2xl p-6 flex flex-col justify-between reveal">
                     <div>
+                        <div class="-mx-6 -mt-6 mb-5 aspect-[4/3] overflow-hidden bg-zinc-200">
+                            <img src="obra-2.jpg" alt="Sistema solar em galpão comercial com 45 módulos de 620W" loading="lazy" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                        </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
-                            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84] dark:text-blue-400">Comercial & Hotelaria</span>
-                            <span class="text-xs font-mono font-bold text-zinc-950 dark:text-white">43,40 kWp</span>
+                            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84]">Comercial • Galpão</span>
+                            <span class="text-xs font-mono font-bold text-zinc-950">27,90 kWp</span>
                         </div>
-                        <h3 class="font-display font-bold text-lg text-zinc-950 dark:text-white">Hotel & Condomínio Termais • Caldas Novas</h3>
-                        <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">
-                            70 módulos Tier-1 de 620W com monitoramento individualizado por string, reduzindo o custo operacional de climatização e aquecimento.
+                        <h3 class="font-display font-bold text-lg text-zinc-950">Galpão Comercial</h3>
+                        <p class="text-xs text-zinc-600 mt-1.5 leading-relaxed">
+                            45 módulos fotovoltaicos de 620W instalados em galpão comercial, reduzindo o custo de energia da operação.
                         </p>
-                        <div class="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+                        <div class="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-zinc-200">
                             <div>
-                                <div class="text-[11px] text-zinc-500">Geração Média</div>
-                                <div class="font-display font-bold text-sm text-zinc-950 dark:text-white">5.450 kWh/mês</div>
+                                <div class="text-[11px] text-zinc-500">Geração Estimada</div>
+                                <div class="font-display font-bold text-sm text-zinc-950">~3.482 kWh/mês</div>
                             </div>
                             <div>
-                                <div class="text-[11px] text-zinc-500">Economia Mensal</div>
-                                <div class="font-display font-bold text-sm text-emerald-600 dark:text-emerald-400">~R$ 4.800/mês</div>
+                                <div class="text-[11px] text-zinc-500">Economia Estimada</div>
+                                <div class="font-display font-bold text-sm text-emerald-600">~R$ 3.203/mês</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-5 pt-4 border-t border-zinc-200 dark:border-zinc-800/80 text-xs italic text-zinc-600 dark:text-zinc-400">
-                        "Equipe técnica muito séria. Hoje também fazem a limpeza periódica da usina e mantêm a geração no pico." — <strong class="not-italic text-zinc-900 dark:text-zinc-200">Fernanda M.</strong>
                     </div>
                 </div>
 
                 <!-- Obra 3 -->
                 <div class="spotlight-card rounded-2xl p-6 flex flex-col justify-between reveal">
                     <div>
+                        <div class="-mx-6 -mt-6 mb-5 aspect-[4/3] overflow-hidden bg-zinc-200">
+                            <img src="obra-3.jpg" alt="Sistema solar residencial com 5 módulos de 620W" loading="lazy" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                        </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
-                            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84] dark:text-blue-400">Usina de Solo • Rural</span>
-                            <span class="text-xs font-mono font-bold text-zinc-950 dark:text-white">24,80 kWp</span>
+                            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84]">Residencial</span>
+                            <span class="text-xs font-mono font-bold text-zinc-950">3,10 kWp</span>
                         </div>
-                        <h3 class="font-display font-bold text-lg text-zinc-950 dark:text-white">Propriedade Rural • Região de Rio Quente</h3>
-                        <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">
-                            40 módulos de 620W em estrutura galvanizada a fogo fixada em solo com orientação norte otimizada para suprir bombas de irrigação e sede.
+                        <h3 class="font-display font-bold text-lg text-zinc-950">Residência</h3>
+                        <p class="text-xs text-zinc-600 mt-1.5 leading-relaxed">
+                            5 módulos fotovoltaicos de 620W instalados em residência, com projeto e homologação completos.
                         </p>
-                        <div class="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+                        <div class="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-zinc-200">
                             <div>
-                                <div class="text-[11px] text-zinc-500">Geração Média</div>
-                                <div class="font-display font-bold text-sm text-zinc-950 dark:text-white">3.100 kWh/mês</div>
+                                <div class="text-[11px] text-zinc-500">Geração Estimada</div>
+                                <div class="font-display font-bold text-sm text-zinc-950">~387 kWh/mês</div>
                             </div>
                             <div>
-                                <div class="text-[11px] text-zinc-500">Economia Mensal</div>
-                                <div class="font-display font-bold text-sm text-emerald-600 dark:text-emerald-400">~R$ 2.420/mês</div>
+                                <div class="text-[11px] text-zinc-500">Economia Estimada</div>
+                                <div class="font-display font-bold text-sm text-emerald-600">~R$ 356/mês</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-5 pt-4 border-t border-zinc-200 dark:border-zinc-800/80 text-xs italic text-zinc-600 dark:text-zinc-400">
-                        "Dimensionaram perfeitamente para o consumo das bombas. Atendimento direto com o engenheiro responsável." — <strong class="not-italic text-zinc-900 dark:text-zinc-200">Roberto S.</strong>
                     </div>
                 </div>
             </div>
@@ -773,77 +638,77 @@
     </section>
 
     <!-- Seção Interativa de Etapas de Execução (Fundo Branco #ffffff + Caixa Cinza Suave #f4f4f5) -->
-    <section id="processo" class="py-24 border-t border-zinc-200 dark:border-zinc-900 bg-white dark:bg-zinc-950">
+    <section id="processo" class="py-24 border-t border-zinc-200 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto reveal">
-                <span class="text-xs font-bold uppercase tracking-widest text-[#123c84] dark:text-blue-400">Transparência Total</span>
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mt-2 text-zinc-950 dark:text-white">
+                <span class="text-xs font-bold uppercase tracking-widest text-[#123c84]">Transparência Total</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mt-2 text-zinc-950">
                     Acompanhe cada etapa do seu projeto
                 </h2>
-                <p class="text-zinc-700 dark:text-zinc-400 mt-3 text-base">
+                <p class="text-zinc-700 mt-3 text-base">
                     Clique nas etapas abaixo para entender como conduzimos seu sistema do primeiro contato até a geração ativa.
                 </p>
             </div>
 
-            <div class="mt-14 spotlight-card !bg-[#f4f4f5] dark:!bg-[#111114] rounded-2xl p-6 sm:p-10 reveal">
+            <div class="mt-14 spotlight-card !bg-[#f4f4f5] rounded-2xl p-6 sm:p-10 reveal">
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 relative" id="steps-container">
                     <button type="button" class="step-btn group text-left sm:text-center flex flex-col sm:items-center p-3 rounded-xl transition-all bg-[#123c84]/10 border border-[#123c84]/30" data-step="0">
                         <div class="w-9 h-9 rounded-full bg-[#123c84] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#123c84]/25">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            1
                         </div>
-                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950 dark:text-white">1. Estudo Técnico</span>
-                        <span class="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">Análise de consumo</span>
+                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950">1. Estudo Técnico</span>
+                        <span class="text-[11px] text-zinc-600 mt-0.5">Análise de consumo</span>
                     </button>
 
                     <button type="button" class="step-btn group text-left sm:text-center flex flex-col sm:items-center p-3 rounded-xl transition-all border border-[#123c84]/30 hover:border-[#123c84]/60" data-step="1">
-                        <div class="w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-300 flex items-center justify-center font-bold text-sm step-circle">
+                        <div class="w-9 h-9 rounded-full bg-white border border-zinc-200 text-zinc-800 flex items-center justify-center font-bold text-sm step-circle">
                             2
                         </div>
-                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950 dark:text-white">2. Projeto & ART</span>
-                        <span class="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">Equatorial Goiás</span>
+                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950">2. Projeto & ART</span>
+                        <span class="text-[11px] text-zinc-600 mt-0.5">Equatorial Goiás</span>
                     </button>
 
                     <button type="button" class="step-btn group text-left sm:text-center flex flex-col sm:items-center p-3 rounded-xl transition-all border border-[#123c84]/30 hover:border-[#123c84]/60" data-step="2">
-                        <div class="w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-300 flex items-center justify-center font-bold text-sm step-circle">
+                        <div class="w-9 h-9 rounded-full bg-white border border-zinc-200 text-zinc-800 flex items-center justify-center font-bold text-sm step-circle">
                             3
                         </div>
-                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950 dark:text-white">3. Equipamentos</span>
-                        <span class="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">Entrega no local</span>
+                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950">3. Equipamentos</span>
+                        <span class="text-[11px] text-zinc-600 mt-0.5">Entrega no local</span>
                     </button>
 
                     <button type="button" class="step-btn group text-left sm:text-center flex flex-col sm:items-center p-3 rounded-xl transition-all border border-[#123c84]/30 hover:border-[#123c84]/60" data-step="3">
-                        <div class="w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-300 flex items-center justify-center font-bold text-sm step-circle">
+                        <div class="w-9 h-9 rounded-full bg-white border border-zinc-200 text-zinc-800 flex items-center justify-center font-bold text-sm step-circle">
                             4
                         </div>
-                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950 dark:text-white">4. Instalação</span>
-                        <span class="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">Montagem e testes</span>
+                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950">4. Instalação</span>
+                        <span class="text-[11px] text-zinc-600 mt-0.5">Montagem e testes</span>
                     </button>
 
                     <button type="button" class="step-btn col-span-2 sm:col-span-1 group text-left sm:text-center flex flex-col sm:items-center p-3 rounded-xl transition-all border border-[#123c84]/30 hover:border-[#123c84]/60" data-step="4">
-                        <div class="w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-300 flex items-center justify-center font-bold text-sm step-circle">
+                        <div class="w-9 h-9 rounded-full bg-white border border-zinc-200 text-zinc-800 flex items-center justify-center font-bold text-sm step-circle">
                             5
                         </div>
-                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950 dark:text-white">5. Usina Ativa</span>
-                        <span class="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">Economia imediata</span>
+                        <span class="font-semibold text-xs sm:text-sm mt-3 text-zinc-950">5. Usina Ativa</span>
+                        <span class="text-[11px] text-zinc-600 mt-0.5">Economia imediata</span>
                     </button>
                 </div>
 
-                <div class="mt-8 pt-8 border-t border-zinc-200 dark:border-zinc-800 grid md:grid-cols-12 gap-6 items-center" id="step-detail-box">
+                <div class="mt-8 pt-8 border-t border-zinc-200 grid md:grid-cols-12 gap-6 items-center" id="step-detail-box">
                     <div class="md:col-span-8 space-y-2">
-                        <div class="inline-flex items-center gap-2 text-xs font-bold text-[#123c84] dark:text-blue-400 uppercase tracking-wider" id="step-tag">
+                        <div class="inline-flex items-center gap-2 text-xs font-bold text-[#123c84] uppercase tracking-wider" id="step-tag">
                             Etapa 01 • Diagnóstico Inicial
                         </div>
-                        <h3 class="font-display font-bold text-xl sm:text-2xl text-zinc-950 dark:text-white" id="step-title">
+                        <h3 class="font-display font-bold text-xl sm:text-2xl text-zinc-950" id="step-title">
                             Visita Técnica e Dimensionamento Personalizado
                         </h3>
-                        <p class="text-zinc-700 dark:text-zinc-400 text-sm sm:text-base leading-relaxed" id="step-desc">
-                            Analisamos seu histórico de consumo nos últimos 12 meses, avaliamos a orientação e estrutura do telhado ou terreno em Caldas Novas e dimensionamos a potência ideal (kWp) para maximizar sua economia.
+                        <p class="text-zinc-700 text-sm sm:text-base leading-relaxed" id="step-desc">
+                            Analisamos seu histórico de consumo nos últimos 12 meses, avaliamos a orientação e estrutura do telhado ou terreno e dimensionamos a potência ideal (kWp) para maximizar sua economia.
                         </p>
                     </div>
                     <div class="md:col-span-4 flex md:justify-end">
-                        <div class="w-full sm:w-auto p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs space-y-1.5">
-                            <div class="text-zinc-600 dark:text-zinc-400">Entregável desta fase:</div>
-                            <div class="font-semibold text-sm text-zinc-950 dark:text-white" id="step-deliverable">Proposta Técnica & Estudo de Payback</div>
+                        <div class="w-full sm:w-auto p-4 rounded-xl bg-white border border-zinc-200 text-xs space-y-1.5">
+                            <div class="text-zinc-600">Entregável desta fase:</div>
+                            <div class="font-semibold text-sm text-zinc-950" id="step-deliverable">Proposta Técnica & Estudo de Payback</div>
                         </div>
                     </div>
                 </div>
@@ -852,42 +717,42 @@
     </section>
 
     <!-- Seção de Diferenciais Técnicos / Autoridade (Fundo Cinza Suave #f4f4f5 + Cards Brancos #ffffff) -->
-    <section id="diferenciais" class="py-24 border-t border-zinc-200 dark:border-zinc-900 bg-[#f4f4f5] dark:bg-zinc-950/60">
+    <section id="diferenciais" class="py-24 border-t border-[#0d2d66] bg-[#123c84]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl reveal">
-                <span class="text-xs font-bold uppercase tracking-widest text-[#123c84] dark:text-blue-400">Por que a RZX Energy</span>
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mt-2 text-zinc-950 dark:text-white">
+                <span class="text-xs font-bold uppercase tracking-widest text-white">Por que a RZX Energy</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mt-2 text-white">
                     Padrão rigoroso de instalação e suporte pós-venda local.
                 </h2>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
                 <div class="spotlight-card rounded-2xl p-6 reveal">
-                    <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 text-[#123c84] dark:text-blue-400 flex items-center justify-center mb-4">
+                    <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 text-[#123c84] flex items-center justify-center mb-4">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="font-display font-bold text-lg text-zinc-950 dark:text-white">Instalação Limpa e Organizada</h3>
-                    <p class="text-sm text-zinc-700 dark:text-zinc-400 mt-2 leading-relaxed">
+                    <h3 class="font-display font-bold text-lg text-zinc-950">Instalação Limpa e Organizada</h3>
+                    <p class="text-sm text-zinc-700 mt-2 leading-relaxed">
                         Cabeamento solar com proteção UV, eletrodutos alinhados, proteções CC/CA dedicadas e acabamento estético que valoriza o seu imóvel.
                     </p>
                 </div>
 
                 <div class="spotlight-card rounded-2xl p-6 reveal">
-                    <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 text-[#123c84] dark:text-blue-400 flex items-center justify-center mb-4">
+                    <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 text-[#123c84] flex items-center justify-center mb-4">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </div>
-                    <h3 class="font-display font-bold text-lg text-zinc-950 dark:text-white">Presença Local em Caldas Novas</h3>
-                    <p class="text-sm text-zinc-700 dark:text-zinc-400 mt-2 leading-relaxed">
+                    <h3 class="font-display font-bold text-lg text-zinc-950">Presença Local em Caldas Novas</h3>
+                    <p class="text-sm text-zinc-700 mt-2 leading-relaxed">
                         Atendimento próximo e ágil em Caldas Novas e cidades vizinhas. Você sabe exatamente quem projetou, instalou e acompanha sua usina.
                     </p>
                 </div>
 
                 <div class="spotlight-card rounded-2xl p-6 reveal">
-                    <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 text-[#123c84] dark:text-blue-400 flex items-center justify-center mb-4">
+                    <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 text-[#123c84] flex items-center justify-center mb-4">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                     </div>
-                    <h3 class="font-display font-bold text-lg text-zinc-950 dark:text-white">Ciclo Completo de Vida da Usina</h3>
-                    <p class="text-sm text-zinc-700 dark:text-zinc-400 mt-2 leading-relaxed">
+                    <h3 class="font-display font-bold text-lg text-zinc-950">Ciclo Completo de Vida da Usina</h3>
+                    <p class="text-sm text-zinc-700 mt-2 leading-relaxed">
                         Não apenas instalamos: oferecemos planos de limpeza técnica, manutenção preventiva e suporte contínuo para seu sistema render sempre no máximo.
                     </p>
                 </div>
@@ -896,59 +761,59 @@
     </section>
 
     <!-- Nova Seção: Perguntas Frequentes (FAQ) (Fundo Branco #ffffff + Itens Cinza Suave #f4f4f5) -->
-    <section id="faq" class="py-24 border-t border-zinc-200 dark:border-zinc-900 bg-white dark:bg-zinc-950">
+    <section id="faq" class="py-24 border-t border-zinc-200 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto reveal">
-                <span class="text-xs font-bold uppercase tracking-widest text-[#123c84] dark:text-blue-400">Tire suas Dúvidas</span>
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mt-2 text-zinc-950 dark:text-white">
+                <span class="text-xs font-bold uppercase tracking-widest text-[#123c84]">Tire suas Dúvidas</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mt-2 text-zinc-950">
                     Perguntas Frequentes sobre Energia Solar
                 </h2>
-                <p class="text-zinc-700 dark:text-zinc-400 mt-3 text-base">
+                <p class="text-zinc-700 mt-3 text-base">
                     Esclarecimentos técnicos diretos sobre homologação, economia e manutenção em Goiás.
                 </p>
             </div>
 
             <div class="mt-12 space-y-3.5 reveal" id="faq-container">
                 <!-- Pergunta 1 -->
-                <div class="faq-item rounded-2xl bg-[#f4f4f5] dark:bg-[#111114] border border-zinc-200 dark:border-zinc-800 overflow-hidden transition-colors">
-                    <button type="button" class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-zinc-950 dark:text-white">
+                <div class="faq-item rounded-2xl bg-[#f4f4f5] border border-zinc-200 overflow-hidden transition-colors">
+                    <button type="button" class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-zinc-950">
                         <span>Mesmo com a Lei 14.300 (taxação do Fio B), energia solar ainda vale a pena?</span>
-                        <svg class="faq-icon w-5 h-5 text-[#123c84] dark:text-blue-400 shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        <svg class="faq-icon w-5 h-5 text-[#123c84] shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-5 text-sm sm:text-base text-zinc-700 dark:text-zinc-400 leading-relaxed border-t border-zinc-200/70 dark:border-zinc-800/70 pt-4">
+                    <div class="faq-content hidden px-6 pb-5 text-sm sm:text-base text-zinc-700 leading-relaxed border-t border-zinc-200/70 pt-4">
                         Sim, continua sendo um dos investimentos mais rentáveis. A cobrança gradual incide apenas sobre a parcela de distribuição (Fio B) da energia que é injetada na rede e consumida depois — a energia consumida instantaneamente durante o dia não paga esse encargo. Em Caldas Novas, devido à alta irradiação solar, o retorno do investimento (payback) gira em torno de 2 anos e 3 meses, para um sistema que dura mais de 25 anos.
                     </div>
                 </div>
 
                 <!-- Pergunta 2 -->
-                <div class="faq-item rounded-2xl bg-[#f4f4f5] dark:bg-[#111114] border border-zinc-200 dark:border-zinc-800 overflow-hidden transition-colors">
-                    <button type="button" class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-zinc-950 dark:text-white">
+                <div class="faq-item rounded-2xl bg-[#f4f4f5] border border-zinc-200 overflow-hidden transition-colors">
+                    <button type="button" class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-zinc-950">
                         <span>Se acabar a energia da rua, meu sistema solar continua funcionando?</span>
-                        <svg class="faq-icon w-5 h-5 text-[#123c84] dark:text-blue-400 shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        <svg class="faq-icon w-5 h-5 text-[#123c84] shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-5 text-sm sm:text-base text-zinc-700 dark:text-zinc-400 leading-relaxed border-t border-zinc-200/70 dark:border-zinc-800/70 pt-4">
+                    <div class="faq-content hidden px-6 pb-5 text-sm sm:text-base text-zinc-700 leading-relaxed border-t border-zinc-200/70 pt-4">
                         Nos sistemas tradicionais conectados à rede (<strong>On-Grid</strong>), o inversor desliga automaticamente por norma de segurança (anti-ilhamento) para proteger os eletricistas da Equatorial que estejam fazendo reparos na rede. Caso você precise de autonomia durante quedas de energia, a RZX Energy também projeta <strong>Sistemas Híbridos com Baterias de Lítio</strong>, que mantêm cargas essenciais ligadas sem interrupção.
                     </div>
                 </div>
 
                 <!-- Pergunta 3 -->
-                <div class="faq-item rounded-2xl bg-[#f4f4f5] dark:bg-[#111114] border border-zinc-200 dark:border-zinc-800 overflow-hidden transition-colors">
-                    <button type="button" class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-zinc-950 dark:text-white">
+                <div class="faq-item rounded-2xl bg-[#f4f4f5] border border-zinc-200 overflow-hidden transition-colors">
+                    <button type="button" class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-zinc-950">
                         <span>Vocês realizam limpeza e manutenção em usinas instaladas por outras empresas?</span>
-                        <svg class="faq-icon w-5 h-5 text-[#123c84] dark:text-blue-400 shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        <svg class="faq-icon w-5 h-5 text-[#123c84] shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-5 text-sm sm:text-base text-zinc-700 dark:text-zinc-400 leading-relaxed border-t border-zinc-200/70 dark:border-zinc-800/70 pt-4">
+                    <div class="faq-content hidden px-6 pb-5 text-sm sm:text-base text-zinc-700 leading-relaxed border-t border-zinc-200/70 pt-4">
                         Sim! Atendemos qualquer sistema fotovoltaico residencial, comercial ou rural em Caldas Novas e região. Se a empresa que instalou o seu sistema fechou ou não oferece suporte pós-venda, nossa equipe faz o diagnóstico completo, limpeza técnica especializada, reconfiguração de monitoramento e regularização junto à Equatorial.
                     </div>
                 </div>
 
                 <!-- Pergunta 4 -->
-                <div class="faq-item rounded-2xl bg-[#f4f4f5] dark:bg-[#111114] border border-zinc-200 dark:border-zinc-800 overflow-hidden transition-colors">
-                    <button type="button" class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-zinc-950 dark:text-white">
+                <div class="faq-item rounded-2xl bg-[#f4f4f5] border border-zinc-200 overflow-hidden transition-colors">
+                    <button type="button" class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-zinc-950">
                         <span>Quanto tempo demora o processo completo até a usina começar a gerar?</span>
-                        <svg class="faq-icon w-5 h-5 text-[#123c84] dark:text-blue-400 shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        <svg class="faq-icon w-5 h-5 text-[#123c84] shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-5 text-sm sm:text-base text-zinc-700 dark:text-zinc-400 leading-relaxed border-t border-zinc-200/70 dark:border-zinc-800/70 pt-4">
+                    <div class="faq-content hidden px-6 pb-5 text-sm sm:text-base text-zinc-700 leading-relaxed border-t border-zinc-200/70 pt-4">
                         A instalação física em telhados residenciais costuma levar de <strong>2 a 4 dias úteis</strong>. Já o trâmite completo — incluindo elaboração do projeto elétrico, emissão do parecer de acesso, vistoria e troca do medidor bidirecional pela Equatorial Goiás — leva em média de <strong>30 a 45 dias</strong>, com acompanhamento integral da nossa engenharia.
                     </div>
                 </div>
@@ -957,15 +822,15 @@
     </section>
 
     <!-- CTA Final de Conversão (Fundo Cinza Suave #f4f4f5 + Caixa Branca #ffffff) -->
-    <section class="py-20 border-t border-zinc-200 dark:border-zinc-900 bg-[#f4f4f5] dark:bg-zinc-950">
+    <section class="py-20 border-t border-zinc-200 bg-[#f4f4f5]">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
-            <div class="rounded-3xl p-8 sm:p-14 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-950 dark:text-white relative overflow-hidden shadow-lg">
+            <div class="rounded-3xl p-8 sm:p-14 bg-white border border-zinc-200 text-zinc-950 relative overflow-hidden shadow-lg">
                 <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
                     <div class="space-y-3 max-w-xl">
-                        <h2 class="font-display font-bold text-2xl sm:text-4xl tracking-tight text-zinc-950 dark:text-white">
+                        <h2 class="font-display font-bold text-2xl sm:text-4xl tracking-tight text-zinc-950">
                             Pronto para gerar sua própria energia com segurança?
                         </h2>
-                        <p class="text-zinc-700 dark:text-zinc-400 text-sm sm:text-base">
+                        <p class="text-zinc-700 text-sm sm:text-base">
                             Fale diretamente com a equipe da RZX Energy para projetos, instalações, limpezas ou manutenções.
                         </p>
                     </div>
@@ -980,59 +845,77 @@
     </section>
 
     <!-- Rodapé Limpo e Institucional -->
-    <footer class="border-t border-zinc-200 dark:border-zinc-900 py-12 text-sm text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-950">
+    <footer class="border-t border-zinc-200 py-14 text-sm text-zinc-600 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div class="flex items-center">
-                    <div>
-                        <span class="font-display font-bold text-zinc-950 dark:text-white">RZX Energy</span>
-                        <span class="mx-2 text-zinc-300 dark:text-zinc-700">|</span>
-                        <span class="font-medium text-zinc-700 dark:text-zinc-300">CNPJ: 65.630.835/0001-70</span>
-                    </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+                <!-- Empresa -->
+                <div class="col-span-2 md:col-span-1">
+                    <div class="font-display font-bold text-lg text-zinc-950">RZX Energy</div>
+                    <div class="mt-1 font-medium text-zinc-700">CNPJ: 65.630.835/0001-70</div>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-6">
-                    <a href="#simulador" class="hover:text-zinc-950 dark:hover:text-white transition-colors">Simulador</a>
-                    <a href="#servicos" class="hover:text-zinc-950 dark:hover:text-white transition-colors">Serviços</a>
-                    <a href="#obras" class="hover:text-zinc-950 dark:hover:text-white transition-colors">Obras</a>
-                    <a href="#faq" class="hover:text-zinc-950 dark:hover:text-white transition-colors">Dúvidas</a>
-                    <a href="https://wa.me/5564992137886" target="_blank" rel="noopener noreferrer" class="text-[#123c84] dark:text-blue-400 font-semibold hover:underline">
-                        (64) 99213-7886
-                    </a>
+                <!-- Navegação -->
+                <div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-zinc-950 mb-4">Navegação</div>
+                    <ul class="space-y-2.5">
+                        <li><a href="#simulador" class="hover:text-zinc-950 transition-colors">Simulador</a></li>
+                        <li><a href="#servicos" class="hover:text-zinc-950 transition-colors">Serviços</a></li>
+                        <li><a href="#obras" class="hover:text-zinc-950 transition-colors">Obras</a></li>
+                        <li><a href="#faq" class="hover:text-zinc-950 transition-colors">Dúvidas</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contato -->
+                <div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-zinc-950 mb-4">Contato</div>
+                    <ul class="space-y-2.5">
+                        <li><a href="https://wa.me/5564992137886" target="_blank" rel="noopener noreferrer" class="text-[#123c84] font-semibold hover:underline">WhatsApp: (64) 99213-7886</a></li>
+                        <li><a href="mailto:contatorzxenergy@gmail.com" class="hover:text-zinc-950 transition-colors">contatorzxenergy@gmail.com</a></li>
+                        <li><a href="https://www.instagram.com/rzxenergy" target="_blank" rel="noopener noreferrer" class="hover:text-zinc-950 transition-colors">Instagram: @rzxenergy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Atendimento -->
+                <div class="col-span-2 md:col-span-1">
+                    <div class="text-xs font-bold uppercase tracking-widest text-zinc-950 mb-4">Atendimento</div>
+                    <ul class="space-y-2.5">
+                        <li>Segunda a sábado, das 8h às 18h</li>
+                        <li>Caldas Novas, Rio Quente e região</li>
+                    </ul>
                 </div>
             </div>
-            <div class="mt-8 pt-6 border-t border-zinc-200 dark:border-zinc-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+
+            <div class="mt-10 pt-6 border-t border-zinc-200 text-xs">
                 <p>&copy; <span id="current-year"></span> RZX Energy. Todos os direitos reservados.</p>
-                <p>Projetos Fotovoltaicos • Limpeza Técnica • Manutenção • Homologação</p>
             </div>
         </div>
     </footer>
 
     <!-- Modal de Detalhes Técnicos dos Serviços -->
     <div id="service-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl transform transition-all scale-95 opacity-0" id="service-modal-content">
+        <div class="bg-white border border-zinc-200 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl transform transition-all scale-95 opacity-0" id="service-modal-content">
             <div class="flex items-start justify-between gap-4">
                 <div>
-                    <span id="modal-badge" class="inline-block text-xs font-semibold px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84] dark:text-blue-400 mb-2"></span>
-                    <h3 id="modal-title" class="font-display font-bold text-xl sm:text-2xl text-zinc-950 dark:text-white"></h3>
+                    <span id="modal-badge" class="inline-block text-xs font-semibold px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84] mb-2"></span>
+                    <h3 id="modal-title" class="font-display font-bold text-xl sm:text-2xl text-zinc-950"></h3>
                 </div>
-                <button id="close-modal" aria-label="Fechar janela" class="p-2 rounded-lg text-zinc-500 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                <button id="close-modal" aria-label="Fechar janela" class="p-2 rounded-lg text-zinc-500 hover:text-zinc-950 hover:bg-zinc-100 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
 
-            <p id="modal-desc" class="text-sm text-zinc-700 dark:text-zinc-400 mt-4 leading-relaxed"></p>
+            <p id="modal-desc" class="text-sm text-zinc-700 mt-4 leading-relaxed"></p>
 
-            <div class="mt-6 pt-5 border-t border-zinc-200 dark:border-zinc-800">
-                <div class="text-xs font-semibold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-3">O que está incluso:</div>
-                <ul id="modal-list" class="space-y-2.5 text-sm text-zinc-800 dark:text-zinc-300"></ul>
+            <div class="mt-6 pt-5 border-t border-zinc-200">
+                <div class="text-xs font-semibold uppercase tracking-wider text-zinc-600 mb-3">O que está incluso:</div>
+                <ul id="modal-list" class="space-y-2.5 text-sm text-zinc-800"></ul>
             </div>
 
             <div class="mt-8 flex flex-col sm:flex-row gap-3">
                 <a id="modal-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#123c84] hover:bg-[#1a4ca3] text-white font-semibold text-sm transition-all">
                     <span>Solicitar este Serviço</span>
                 </a>
-                <button id="close-modal-secondary" class="px-5 py-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-200 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                <button id="close-modal-secondary" class="px-5 py-3.5 rounded-xl border border-zinc-200 text-zinc-900 text-sm font-medium hover:bg-zinc-100 transition-colors">
                     Fechar
                 </button>
             </div>
@@ -1051,18 +934,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // Persistência de Tema (Dark / Light) no localStorage
-            const themeToggle = document.getElementById('theme-toggle');
-            const htmlEl = document.documentElement;
-            let saved = null; try { saved = localStorage.getItem('rzx-theme'); } catch (e) {}
-            if (saved === 'dark') {
-                htmlEl.classList.add('dark');
-            }
-            themeToggle.addEventListener('click', () => {
-                htmlEl.classList.toggle('dark');
-                try { localStorage.setItem('rzx-theme', htmlEl.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
-            });
 
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -1110,7 +981,7 @@
                 {
                     tag: 'Etapa 01 • Diagnóstico Inicial',
                     title: 'Visita Técnica e Dimensionamento Personalizado',
-                    desc: 'Analisamos seu histórico de consumo nos últimos 12 meses, avaliamos a orientação e estrutura do telhado ou terreno em Caldas Novas e dimensionamos a potência ideal (kWp) para maximizar sua economia.',
+                    desc: 'Analisamos seu histórico de consumo nos últimos 12 meses, avaliamos a orientação e estrutura do telhado ou terreno e dimensionamos a potência ideal (kWp) para maximizar sua economia.',
                     deliverable: 'Proposta Técnica & Estudo de Payback'
                 },
                 {
@@ -1158,7 +1029,7 @@
                         } else {
                             b.classList.remove('bg-[#123c84]/10');
                             b.classList.add('hover:border-[#123c84]/60');
-                            circle.className = 'w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-300 flex items-center justify-center font-bold text-sm';
+                            circle.className = 'w-9 h-9 rounded-full bg-white border border-zinc-200 text-zinc-800 flex items-center justify-center font-bold text-sm';
                         }
                     });
 
@@ -1187,8 +1058,9 @@
             const MONTHLY_KWH_PER_KWP = SYSTEM_EFFICIENCY * HSP_CALDAS_NOVAS * DAYS_MONTH;
 
             let selectedProfile = 'Residencial';
-            let avgTariff = 0.92;
-            let basePaybackMonths = 27;
+            // Mesma conta para todos os perfis (o perfil só vai na mensagem do WhatsApp)
+            const avgTariff = 0.92;
+            const basePaybackMonths = 27;
 
             function formatBRL(value) {
                 return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
@@ -1233,94 +1105,17 @@
             profileBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     profileBtns.forEach(b => {
-                        b.className = 'profile-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-all';
+                        b.className = 'profile-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-medium text-zinc-700 hover:text-zinc-950 transition-all';
                     });
                     btn.className = 'profile-btn py-2 px-3 rounded-lg text-xs sm:text-sm font-semibold bg-[#123c84] text-white shadow-sm transition-all';
 
                     selectedProfile = btn.getAttribute('data-profile');
-                    avgTariff = parseFloat(btn.getAttribute('data-tariff'));
-                    basePaybackMonths = parseInt(btn.getAttribute('data-base-months'), 10);
                     updateSimulator();
                 });
             });
 
             billSlider.addEventListener('input', updateSimulator);
             updateSimulator();
-
-            // Telemetria Interativa (Clima + Barras Clicáveis)
-            const weatherSunny = document.getElementById('weather-sunny');
-            const weatherCloudy = document.getElementById('weather-cloudy');
-            const telemetryCondition = document.getElementById('telemetry-condition');
-            const liveKwh = document.getElementById('live-kwh');
-            const liveEfficiency = document.getElementById('live-efficiency');
-            const telemetrySelectedInfo = document.getElementById('telemetry-selected-info');
-            const telemetryBars = document.querySelectorAll('.telemetry-bar');
-
-            const weatherModes = {
-                sunny: {
-                    condition: 'Condição: Irradiação Plena',
-                    kwh: '1.240',
-                    eff: '+98.4%',
-                    peakInfo: '12:00 (Pico: 9,6 kW)',
-                    bars: [
-                        { h: '45%', kw: '3,8 kW' },
-                        { h: '68%', kw: '6,9 kW' },
-                        { h: '95%', kw: '9,6 kW' },
-                        { h: '90%', kw: '9,1 kW' },
-                        { h: '62%', kw: '5,8 kW' },
-                        { h: '35%', kw: '2,4 kW' }
-                    ]
-                },
-                cloudy: {
-                    condition: 'Condição: Radiação Difusa (Nuvens)',
-                    kwh: '890',
-                    eff: '+71.2%',
-                    peakInfo: '12:00 (Pico: 6,2 kW)',
-                    bars: [
-                        { h: '30%', kw: '2,1 kW' },
-                        { h: '48%', kw: '4,3 kW' },
-                        { h: '65%', kw: '6,2 kW' },
-                        { h: '58%', kw: '5,4 kW' },
-                        { h: '42%', kw: '3,6 kW' },
-                        { h: '22%', kw: '1,4 kW' }
-                    ]
-                }
-            };
-
-            function applyWeatherMode(modeKey) {
-                const mode = weatherModes[modeKey];
-                telemetryCondition.textContent = mode.condition;
-                liveKwh.textContent = mode.kwh;
-                liveEfficiency.textContent = mode.eff;
-                telemetrySelectedInfo.textContent = mode.peakInfo;
-
-                telemetryBars.forEach((bar, idx) => {
-                    const item = mode.bars[idx];
-                    bar.style.height = item.h;
-                    bar.setAttribute('data-kw', item.kw);
-                    bar.querySelector('.bar-tip').textContent = item.kw;
-                });
-            }
-
-            weatherSunny.addEventListener('click', () => {
-                weatherSunny.className = 'weather-btn px-4 py-2 rounded-lg text-xs font-semibold bg-[#123c84] text-white shadow-sm transition-all flex items-center gap-1.5';
-                weatherCloudy.className = 'weather-btn px-4 py-2 rounded-lg text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-all flex items-center gap-1.5';
-                applyWeatherMode('sunny');
-            });
-
-            weatherCloudy.addEventListener('click', () => {
-                weatherCloudy.className = 'weather-btn px-4 py-2 rounded-lg text-xs font-semibold bg-[#123c84] text-white shadow-sm transition-all flex items-center gap-1.5';
-                weatherSunny.className = 'weather-btn px-4 py-2 rounded-lg text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-all flex items-center gap-1.5';
-                applyWeatherMode('cloudy');
-            });
-
-            telemetryBars.forEach(bar => {
-                bar.addEventListener('click', () => {
-                    const hr = bar.getAttribute('data-hour');
-                    const kw = bar.getAttribute('data-kw');
-                    telemetrySelectedInfo.textContent = `${hr} (Potência: ${kw})`;
-                });
-            });
 
             // Acordeão Interativo do FAQ
             document.querySelectorAll('.faq-trigger').forEach(trigger => {
@@ -1359,7 +1154,7 @@
                 modalDesc.textContent = desc;
                 modalList.innerHTML = items.map(item => `
                     <li class="flex items-start gap-2.5">
-                        <span class="w-5 h-5 rounded-full bg-[#123c84]/15 text-[#123c84] dark:text-blue-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</span>
+                        <span class="w-5 h-5 rounded-full bg-[#123c84]/15 text-[#123c84] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</span>
                         <span>${item}</span>
                     </li>
                 `).join('');
