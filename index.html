@@ -1377,13 +1377,13 @@ document.querySelectorAll('#servicos .spotlight-card,#obras .spotlight-card').fo
  c.addEventListener('pointerdown',e=>{down=true;tilt(e);});c.addEventListener('pointermove',tilt);
  ['pointerup','pointerleave','pointercancel'].forEach(t=>c.addEventListener(t,off));});
 
-/* 7b. Anel do cursor (mouse sempre; no celular acompanha o dedo enquanto toca) */
+/* 7b. Anel do cursor (só no computador, com mouse) */
 const ring=document.createElement('div');ring.className='fx-ring';document.body.appendChild(ring);
 let x=-100,y=-100,tx=-100,ty=-100,first=true;
 const mv=e=>{tx=e.clientX;ty=e.clientY;if(first||e.type==='pointerdown'){x=tx;y=ty;first=false;}ring.classList.add('on');ring.classList.toggle('hov',!!(e.target.closest&&e.target.closest(HOV)));};
-addEventListener('pointermove',e=>{if(e.pointerType==='mouse'||e.buttons)mv(e);});
-addEventListener('pointerdown',e=>{mv(e);ring.classList.add('dn');});
-addEventListener('pointerup',e=>{ring.classList.remove('dn');if(e.pointerType!=='mouse'){first=true;ring.classList.remove('on','hov');}});
+addEventListener('pointermove',e=>{if(e.pointerType==='mouse')mv(e);});
+addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'){mv(e);ring.classList.add('dn');}});
+addEventListener('pointerup',e=>{if(e.pointerType==='mouse')ring.classList.remove('dn');});
 addEventListener('pointercancel',()=>{first=true;ring.classList.remove('on','hov','dn');});
 document.documentElement.addEventListener('mouseleave',()=>ring.classList.remove('on'));
 (function loop(){x+=(tx-x)*.2;y+=(ty-y)*.2;ring.style.transform=`translate3d(${x}px,${y}px,0)`;requestAnimationFrame(loop);})();
