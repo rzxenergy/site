@@ -180,6 +180,19 @@
         .hero-video-zone h1, .hero-video-zone p, .hero-video-zone strong,
         .hero-video-zone .font-display.font-bold, .hero-video-zone .text-xs.text-zinc-600 { text-shadow: 0 1px 14px rgba(0,0,0,.45); }
         .hero-video-zone .border-t { border-color:rgba(255,255,255,.25) !important; }
+        /* Faixa de marcas em carrossel contínuo */
+        .brand-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+        .brand-track { display: flex; width: max-content; animation: brand-scroll 40s linear infinite; }
+        .brand-marquee:hover .brand-track { animation-play-state: paused; }
+        .brand-group { display: flex; flex-shrink: 0; align-items: center; }
+        .brand-item { flex-shrink: 0; padding: 0 2.75rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.01em; color: #a1a1aa; white-space: nowrap; transition: color .3s ease; cursor: default; }
+        .brand-item:hover { color: #123c84; }
+        .brand-logo { flex-shrink: 0; margin: 0 2.75rem; height: var(--h, 2.5rem); width: auto; filter: brightness(0) opacity(.4); transition: filter .3s ease; }
+        .brand-logo:hover { filter: brightness(1) opacity(1); }
+        @keyframes brand-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @media (max-width: 640px) { .brand-item { padding: 0 1.75rem; font-size: 1.2rem; } .brand-logo { margin: 0 1.75rem; height: calc(var(--h, 2.5rem) * .8); } .brand-track { animation-duration: 30s; } }
+        /* Aparelhos com "reduzir movimento" ativado: o carrossel continua, só que bem mais lento */
+        @media (prefers-reduced-motion: reduce) { .brand-track { animation-duration: 90s; } }
     </style>
 </head>
 <body class="antialiased selection:bg-[#123c84]/20 selection:text-[#123c84]">
@@ -240,7 +253,7 @@
     </header>
 
     <!-- Seção Hero (Fundo Cinza Suave #f4f4f5 + Simulador em Caixa Branca #ffffff) -->
-    <section class="relative pt-20 pb-20 lg:pb-28 bg-[#f4f4f5] bg-grid-pattern overflow-hidden">
+    <section class="relative pt-20 pb-14 md:pb-20 lg:pb-28 bg-[#f4f4f5] bg-grid-pattern overflow-hidden">
         <!-- Brilho radial azul sutil no fundo -->
         <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-[#123c84]/10 blur-[130px] rounded-full pointer-events-none"></div>
 
@@ -413,8 +426,52 @@
         </div>
     </section>
 
+    <!-- Faixa de Marcas (carrossel contínuo) -->
+    <section id="marcas" class="py-12 md:py-16 bg-white border-t border-zinc-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <span class="text-xs font-bold uppercase tracking-widest text-[#123c84]">Equipamentos de Confiança</span>
+            <p class="font-display font-bold text-xl sm:text-2xl tracking-tight mt-2 text-zinc-950">Trabalhamos com marcas reconhecidas do mercado solar.</p>
+        </div>
+        <div class="brand-marquee mt-8" aria-label="Marcas de inversores e painéis solares">
+            <div class="brand-track">
+                <div class="brand-group">
+                    <img class="brand-logo" decoding="sync" src="growatt.png" alt="Growatt" style="--h:2.2rem">
+                    <img class="brand-logo" decoding="sync" src="solis.png" alt="Solis" style="--h:2.9rem">
+                    <img class="brand-logo" decoding="sync" src="intelbras.png" alt="Intelbras" style="--h:2.4rem">
+                    <img class="brand-logo" decoding="sync" src="osda.png" alt="OSDA" style="--h:3.0rem">
+                    <img class="brand-logo" decoding="sync" src="jinko.png" alt="Jinko Solar" style="--h:3.1rem">
+                    <img class="brand-logo" decoding="sync" src="hanersun.png" alt="Hanersun" style="--h:1.3rem">
+                    <img class="brand-logo" decoding="sync" src="deye.png" alt="Deye" style="--h:3.1rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="growatt.png" alt="" style="--h:2.2rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="solis.png" alt="" style="--h:2.9rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="intelbras.png" alt="" style="--h:2.4rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="osda.png" alt="" style="--h:3.0rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="jinko.png" alt="" style="--h:3.1rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="hanersun.png" alt="" style="--h:1.3rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="deye.png" alt="" style="--h:3.1rem">
+                </div>
+                <div class="brand-group" aria-hidden="true">
+                    <img class="brand-logo" aria-hidden="true" decoding="sync" src="growatt.png" alt="" style="--h:2.2rem">
+                    <img class="brand-logo" aria-hidden="true" decoding="sync" src="solis.png" alt="" style="--h:2.9rem">
+                    <img class="brand-logo" aria-hidden="true" decoding="sync" src="intelbras.png" alt="" style="--h:2.4rem">
+                    <img class="brand-logo" aria-hidden="true" decoding="sync" src="osda.png" alt="" style="--h:3.0rem">
+                    <img class="brand-logo" aria-hidden="true" decoding="sync" src="jinko.png" alt="" style="--h:3.1rem">
+                    <img class="brand-logo" aria-hidden="true" decoding="sync" src="hanersun.png" alt="" style="--h:1.3rem">
+                    <img class="brand-logo" aria-hidden="true" decoding="sync" src="deye.png" alt="" style="--h:3.1rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="growatt.png" alt="" style="--h:2.2rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="solis.png" alt="" style="--h:2.9rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="intelbras.png" alt="" style="--h:2.4rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="osda.png" alt="" style="--h:3.0rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="jinko.png" alt="" style="--h:3.1rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="hanersun.png" alt="" style="--h:1.3rem">
+                    <img class="brand-logo brand-dup" aria-hidden="true" decoding="sync" src="deye.png" alt="" style="--h:3.1rem">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Seção de Serviços (Fundo Azul Institucional #123c84 + Textos do Cabeçalho em Branco + Cards Intactos) -->
-    <section id="servicos" class="py-24 relative border-t border-[#0d2d66] bg-[#123c84]">
+    <section id="servicos" class="py-16 md:py-24 relative border-t border-[#0d2d66] bg-[#123c84]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl reveal">
                 <span class="text-xs font-bold uppercase tracking-widest text-white">Soluções Completas</span>
@@ -426,7 +483,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mt-12">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mt-8 md:mt-12">
                 <!-- Card 1 -->
                 <div class="md:col-span-7 spotlight-card !bg-[#f4f4f5] rounded-2xl p-7 sm:p-8 flex flex-col justify-between cursor-pointer reveal service-trigger"
                      data-title="Projetos e Instalação Fotovoltaica"
@@ -536,7 +593,7 @@
     </section>
 
     <!-- Nova Seção: Obras Realizadas e Prova Social (Fundo Cinza Suave #f4f4f5 + Cards Brancos #ffffff) -->
-    <section id="obras" class="py-24 border-t border-zinc-200 bg-[#f4f4f5]">
+    <section id="obras" class="py-16 md:py-24 border-t border-zinc-200 bg-[#f4f4f5]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal">
                 <div class="max-w-2xl">
@@ -552,12 +609,12 @@
             </div>
 
             <!-- Grid de Obras / Estudos de Caso -->
-            <div class="grid md:grid-cols-3 gap-6 mt-12">
+            <div class="grid md:grid-cols-3 gap-6 mt-8 md:mt-12">
                 <!-- Obra 1 -->
                 <div class="spotlight-card rounded-2xl p-6 flex flex-col justify-between reveal">
                     <div>
                         <div class="-mx-6 -mt-6 mb-5 aspect-[4/3] overflow-hidden bg-zinc-200">
-                            <img src="obra-1.jpg" alt="Sistema solar residencial de alto padrão com 17 módulos de 620W" loading="lazy" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                            <img src="obra-1.jpg" alt="Sistema solar residencial de alto padrão com 17 módulos de 620W" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
                         </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
                             <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84]">Residencial Alto Padrão</span>
@@ -584,7 +641,7 @@
                 <div class="spotlight-card rounded-2xl p-6 flex flex-col justify-between reveal">
                     <div>
                         <div class="-mx-6 -mt-6 mb-5 aspect-[4/3] overflow-hidden bg-zinc-200">
-                            <img src="obra-2.jpg" alt="Sistema solar em galpão comercial com 45 módulos de 620W" loading="lazy" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                            <img src="obra-2.jpg" alt="Sistema solar em galpão comercial com 45 módulos de 620W" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
                         </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
                             <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84]">Comercial • Galpão</span>
@@ -611,7 +668,7 @@
                 <div class="spotlight-card rounded-2xl p-6 flex flex-col justify-between reveal">
                     <div>
                         <div class="-mx-6 -mt-6 mb-5 aspect-[4/3] overflow-hidden bg-zinc-200">
-                            <img src="obra-3.jpg" alt="Sistema solar residencial com 5 módulos de 620W" loading="lazy" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                            <img src="obra-3.jpg" alt="Sistema solar residencial com 5 módulos de 620W" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
                         </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
                             <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84]">Residencial</span>
@@ -638,7 +695,7 @@
     </section>
 
     <!-- Seção Interativa de Etapas de Execução (Fundo Branco #ffffff + Caixa Cinza Suave #f4f4f5) -->
-    <section id="processo" class="py-24 border-t border-zinc-200 bg-white">
+    <section id="processo" class="py-16 md:py-24 border-t border-zinc-200 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto reveal">
                 <span class="text-xs font-bold uppercase tracking-widest text-[#123c84]">Transparência Total</span>
@@ -650,7 +707,7 @@
                 </p>
             </div>
 
-            <div class="mt-14 spotlight-card !bg-[#f4f4f5] rounded-2xl p-6 sm:p-10 reveal">
+            <div class="mt-10 md:mt-14 spotlight-card !bg-[#f4f4f5] rounded-2xl p-6 sm:p-10 reveal">
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 relative" id="steps-container">
                     <button type="button" class="step-btn group text-left sm:text-center flex flex-col sm:items-center p-3 rounded-xl transition-all bg-[#123c84]/10 border border-[#123c84]/30" data-step="0">
                         <div class="w-9 h-9 rounded-full bg-[#123c84] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#123c84]/25">
@@ -717,7 +774,7 @@
     </section>
 
     <!-- Seção de Diferenciais Técnicos / Autoridade (Fundo Cinza Suave #f4f4f5 + Cards Brancos #ffffff) -->
-    <section id="diferenciais" class="py-24 border-t border-[#0d2d66] bg-[#123c84]">
+    <section id="diferenciais" class="py-16 md:py-24 border-t border-[#0d2d66] bg-[#123c84]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl reveal">
                 <span class="text-xs font-bold uppercase tracking-widest text-white">Por que a RZX Energy</span>
@@ -726,7 +783,7 @@
                 </h2>
             </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 md:mt-12">
                 <div class="spotlight-card rounded-2xl p-6 reveal">
                     <div class="w-10 h-10 rounded-lg bg-[#123c84]/10 border border-[#123c84]/20 text-[#123c84] flex items-center justify-center mb-4">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -761,7 +818,7 @@
     </section>
 
     <!-- Nova Seção: Perguntas Frequentes (FAQ) (Fundo Branco #ffffff + Itens Cinza Suave #f4f4f5) -->
-    <section id="faq" class="py-24 border-t border-zinc-200 bg-white">
+    <section id="faq" class="py-16 md:py-24 border-t border-zinc-200 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto reveal">
                 <span class="text-xs font-bold uppercase tracking-widest text-[#123c84]">Tire suas Dúvidas</span>
@@ -773,7 +830,7 @@
                 </p>
             </div>
 
-            <div class="mt-12 space-y-3.5 reveal" id="faq-container">
+            <div class="mt-8 md:mt-12 space-y-3.5 reveal" id="faq-container">
                 <!-- Pergunta 1 -->
                 <div class="faq-item rounded-2xl bg-[#f4f4f5] border border-zinc-200 overflow-hidden transition-colors">
                     <button type="button" class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-display font-bold text-base sm:text-lg text-zinc-950">
@@ -821,25 +878,24 @@
         </div>
     </section>
 
-    <!-- CTA Final de Conversão (Fundo Cinza Suave #f4f4f5 + Caixa Branca #ffffff) -->
-    <section class="py-20 border-t border-zinc-200 bg-[#f4f4f5]">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
-            <div class="rounded-3xl p-8 sm:p-14 bg-white border border-zinc-200 text-zinc-950 relative overflow-hidden shadow-lg">
-                <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-                    <div class="space-y-3 max-w-xl">
-                        <h2 class="font-display font-bold text-2xl sm:text-4xl tracking-tight text-zinc-950">
-                            Pronto para gerar sua própria energia com segurança?
-                        </h2>
-                        <p class="text-zinc-700 text-sm sm:text-base">
-                            Fale diretamente com a equipe da RZX Energy para projetos, instalações, limpezas ou manutenções.
-                        </p>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-                        <a href="https://wa.me/5564992137886?text=Ol%C3%A1%20RZX%20Energy!%20Gostaria%20de%20conversar%20com%20a%20equipe%20t%C3%A9cnica." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-[#123c84] hover:bg-[#1a4ca3] text-white font-semibold text-sm sm:text-base transition-all whitespace-nowrap shadow-lg shadow-[#123c84]/25">
-                            <span>WhatsApp (64) 99213-7886</span>
-                        </a>
-                    </div>
-                </div>
+    <!-- CTA Final de Conversão (Fundo Azul Institucional + Botão Branco em Destaque) -->
+    <section class="relative overflow-hidden py-16 md:py-24 border-t border-[#0d2d66] bg-[#123c84]">
+        <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-white/10 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight text-white">
+                Pronto para gerar sua própria energia com segurança?
+            </h2>
+            <p class="mt-4 text-base sm:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
+                Fale diretamente com a equipe da RZX Energy para projetos, instalações, limpezas ou manutenções.
+            </p>
+            <div class="mt-9">
+                <a href="https://wa.me/5564992137886?text=Ol%C3%A1%20RZX%20Energy!%20Gostaria%20de%20conversar%20com%20a%20equipe%20t%C3%A9cnica." target="_blank" rel="noopener noreferrer" class="inline-flex w-full sm:w-auto items-center justify-center gap-3 px-8 py-5 rounded-2xl bg-white hover:bg-zinc-100 text-[#123c84] font-display font-bold text-base sm:text-lg whitespace-nowrap shadow-2xl shadow-black/30 ring-4 ring-white/25 hover:ring-white/40 hover:scale-105 transition-all">
+                    <svg class="w-6 h-6 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+                    </svg>
+                    <span>WhatsApp (64) 99213-7886</span>
+                </a>
+                <p class="mt-4 text-xs sm:text-sm text-white/80">Atendimento de segunda a sábado, das 8h às 18h</p>
             </div>
         </div>
     </section>
