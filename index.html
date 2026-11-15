@@ -203,6 +203,24 @@
         /* Aparelhos com "reduzir movimento" ativado: o carrossel continua, só que bem mais lento */
         @media (prefers-reduced-motion: reduce) { .brand-track { animation-duration: 120s; } }
     </style>
+<style id="rzx-fx">
+/* RZX-FX:START */
+.fx-ring{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid #fff;border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:difference;opacity:0;transition:width .25s,height .25s,margin .25s,opacity .3s,background .25s}
+.fx-ring.on{opacity:1}.fx-ring.hov{width:58px;height:58px;margin:-29px 0 0 -29px;background:rgba(255,255,255,.18)}.fx-ring.dn{width:24px;height:24px;margin:-12px 0 0 -12px}
+.wd{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.wd>span{display:inline-block;transform:translateY(110%);transition:transform .85s cubic-bezier(.16,1,.3,1) calc(var(--i)*45ms)}
+.h-in .wd>span{transform:none}
+.fx-line{position:absolute;left:calc((100% - 64px)/10);right:calc((100% - 64px)/10);top:30px;height:2px;background:#d4d4d8;border-radius:2px;display:none;z-index:0}
+@media(min-width:640px){.fx-line{display:block}}
+.fx-line i{display:block;height:100%;background:linear-gradient(90deg,#123c84,#10b981);transform-origin:0 50%;transform:scaleX(0);border-radius:2px}
+#steps-container .step-btn{position:relative;z-index:1}
+.step-btn.lit>div:first-child{box-shadow:0 0 0 5px rgba(18,60,132,.16);transition:box-shadow .4s}
+.fx-sun{transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.fx-prog{transition:stroke-dasharray .7s cubic-bezier(.22,1,.36,1)}
+.fx-p{fill:#e4e4e7;transition:fill .45s ease calc(var(--i)*30ms)}.fx-p.on{fill:#123c84}
+.hero-video-zone video{will-change:transform}
+/* RZX-FX:END */
+</style>
 </head>
 <body class="antialiased selection:bg-[#123c84]/20 selection:text-[#123c84]">
 
@@ -358,6 +376,16 @@
 
                     <div class="lg:col-span-7 reveal active">
                         <div class="spotlight-card rounded-2xl p-7 sm:p-9 shadow-xl">
+                            <!-- RZX-FX:START -->
+                            <div class="mb-6 rounded-xl bg-[#f4f4f5] border border-zinc-200 px-3 pt-3 pb-2" aria-hidden="true">
+                                <svg viewBox="0 0 600 150" class="w-full h-auto">
+                                    <path d="M40 104 A260 90 0 0 1 560 104" fill="none" stroke="#d4d4d8" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round"/>
+                                    <path class="fx-prog" id="fx-prog" pathLength="1" d="M40 104 A260 90 0 0 1 560 104" fill="none" stroke="#123c84" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 1"/>
+                                    <g class="fx-sun" id="fx-sun"><circle r="24" fill="#facc15" opacity=".25"/><circle r="11" fill="#facc15"/></g>
+                                    <g id="fx-panels"></g>
+                                </svg>
+                            </div>
+                            <!-- RZX-FX:END -->
                             <!-- Seletor de Perfil de Consumo -->
                             <div class="mb-6">
                                 <span class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-2.5">1. Selecione o perfil do imóvel:</span>
@@ -1278,5 +1306,90 @@
             });
         });
     </script>
+<script id="rzx-fx-js">
+/* RZX-FX:START */
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=(i)=>document.getElementById(i);
+const HOV='a,button,.service-trigger,.faq-trigger,.step-btn,input[type=range]';
+
+/* 1. Números que contam (slider, toque na barra, troca de perfil e ao aparecer na tela) */
+const trk=[];
+function track(id,parse,fmt){const el=$(id);if(!el)return;let cur=parse(el.textContent),last=el.textContent,raf;
+ const go=(from,to,fin)=>{cancelAnimationFrame(raf);const t0=performance.now();
+  const step=(n)=>{const p=Math.min(1,(n-t0)/(from===0?900:550)),e=1-Math.pow(1-p,3);cur=from+(to-from)*e;last=p<1?fmt(cur):fin;el.textContent=last;if(p<1)raf=requestAnimationFrame(step);else cur=to;};
+  raf=requestAnimationFrame(step);};
+ new MutationObserver(()=>{if(el.textContent===last)return;const to=parse(el.textContent),fin=el.textContent;
+  if(reduce||isNaN(to)||isNaN(cur)){last=fin;cur=to;return;}go(cur,to,fin);}).observe(el,{childList:true,characterData:true,subtree:true});
+ trk.push(()=>{if(reduce)return;const to=parse(el.textContent);if(!isNaN(to))go(0,to,el.textContent);});}
+const brl=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const pBRL=s=>parseInt(s.replace(/\D/g,''),10);
+['bill-display','annual-savings','five-year-savings'].forEach(i=>track(i,pBRL,brl));
+track('system-kwp',s=>parseFloat(s.replace(/[^\d,]/g,'').replace(',','.')),v=>v.toFixed(2).replace('.',',')+' kWp');
+const replay=()=>trk.forEach(f=>f());
+document.querySelectorAll('.profile-btn').forEach(b=>b.addEventListener('click',()=>setTimeout(replay,30)));
+const sim=$('simulador');
+if(sim&&!reduce){const o=new IntersectionObserver(es=>{if(es[0].isIntersecting){o.disconnect();setTimeout(replay,250);}},{threshold:.35});o.observe(sim);}
+
+/* 2. Sol e painéis acompanham o slider */
+const slider=$('bill-slider'),sun=$('fx-sun'),prog=$('fx-prog'),pg=$('fx-panels');
+if(slider&&sun&&pg){
+ const N=12;for(let i=0;i<N;i++){const r=document.createElementNS('http://www.w3.org/2000/svg','rect');r.setAttribute('x',40+i*44);r.setAttribute('y',118);r.setAttribute('width',36);r.setAttribute('height',24);r.setAttribute('rx',3);r.setAttribute('class','fx-p');r.style.setProperty('--i',i);pg.appendChild(r);}
+ const ps=pg.querySelectorAll('.fx-p');
+ const upd=()=>{const t=Math.sqrt(Math.max(0,Math.min(1,(slider.value-slider.min)/(slider.max-slider.min))));
+  const a=Math.PI-t*Math.PI/2;sun.style.transform=`translate(${300+260*Math.cos(a)}px,${104-90*Math.sin(a)}px)`;
+  prog.style.strokeDasharray=`${(t*.5).toFixed(3)} 1`;const on=2+Math.round(t*10);ps.forEach((r,i)=>r.classList.toggle('on',i<on));};
+ slider.addEventListener('input',upd);upd();}
+
+if(!reduce){
+/* 4. Parallax do hero (rolagem em qualquer aparelho; mouse só no computador) */
+const zone=document.querySelector('.hero-video-zone');
+if(zone){const vid=zone.querySelector('video'),copy=zone.querySelector('.max-w-3xl');let mx=0,my=0,tk=false;
+ if(copy)copy.style.transition='opacity .7s cubic-bezier(.16,1,.3,1),transform .2s ease-out';
+ const run=()=>{tk=false;const y=Math.min(window.scrollY,1400),H=zone.offsetHeight;
+  if(vid)vid.style.transform=`translate3d(${(mx*-14).toFixed(1)}px,${(Math.min(y*.25,H*.11)+my*-6).toFixed(1)}px,0) scale(1.25)`;
+  if(copy)copy.style.transform=`translate3d(${(mx*8).toFixed(1)}px,${(y*-.16+my*5).toFixed(1)}px,0)`;};
+ const q=()=>{if(!tk){tk=true;requestAnimationFrame(run);}};
+ addEventListener('scroll',q,{passive:true});
+ zone.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;q();});
+ run();}
+
+/* 5. Linha do processo desenhada ao rolar */
+const sc=$('steps-container');
+if(sc){const ln=document.createElement('div');ln.className='fx-line';ln.innerHTML='<i></i>';sc.prepend(ln);
+ const bt=sc.querySelectorAll('.step-btn'),fill=ln.firstChild;
+ const up=()=>{const r=sc.getBoundingClientRect(),vh=innerHeight,p=Math.max(0,Math.min(1,(vh*.85-r.top)/(vh*.45)));
+  fill.style.transform=`scaleX(${p})`;bt.forEach((b,i)=>b.classList.toggle('lit',p>0&&p>=i/(bt.length-1)-.02));};
+ addEventListener('scroll',up,{passive:true});addEventListener('resize',up);up();}
+
+/* 7a. Títulos palavra por palavra */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('h-in');io.unobserve(e.target);}}),{threshold:.3});
+document.querySelectorAll('h2').forEach(h=>{if(h.children.length)return;const t=h.textContent.trim();
+ h.setAttribute('aria-label',t);h.innerHTML=t.split(/\s+/).map((w,i)=>`<span class="wd" aria-hidden="true"><span style="--i:${i}">${w}</span></span>`).join(' ');io.observe(h);});
+
+/* 6. Cards com inclinação 3D (mouse passando ou dedo pressionando) */
+document.querySelectorAll('#servicos .spotlight-card,#obras .spotlight-card').forEach(c=>{
+ let down=false;
+ const tilt=e=>{if(e.pointerType!=='mouse'&&!down)return;const r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5,k=e.pointerType==='mouse'?8:10;
+  c.style.transition='transform .12s ease-out,border-color .3s,box-shadow .3s';
+  c.style.transform=`perspective(900px) rotateX(${(-py*k).toFixed(2)}deg) rotateY(${(px*k).toFixed(2)}deg) translateY(-3px)`;};
+ const off=()=>{down=false;c.style.transition='';c.style.transform='';};
+ c.addEventListener('pointerdown',e=>{down=true;tilt(e);});c.addEventListener('pointermove',tilt);
+ ['pointerup','pointerleave','pointercancel'].forEach(t=>c.addEventListener(t,off));});
+
+/* 7b. Anel do cursor (mouse sempre; no celular acompanha o dedo enquanto toca) */
+const ring=document.createElement('div');ring.className='fx-ring';document.body.appendChild(ring);
+let x=-100,y=-100,tx=-100,ty=-100,first=true;
+const mv=e=>{tx=e.clientX;ty=e.clientY;if(first||e.type==='pointerdown'){x=tx;y=ty;first=false;}ring.classList.add('on');ring.classList.toggle('hov',!!(e.target.closest&&e.target.closest(HOV)));};
+addEventListener('pointermove',e=>{if(e.pointerType==='mouse'||e.buttons)mv(e);});
+addEventListener('pointerdown',e=>{mv(e);ring.classList.add('dn');});
+addEventListener('pointerup',e=>{ring.classList.remove('dn');if(e.pointerType!=='mouse'){first=true;ring.classList.remove('on','hov');}});
+addEventListener('pointercancel',()=>{first=true;ring.classList.remove('on','hov','dn');});
+document.documentElement.addEventListener('mouseleave',()=>ring.classList.remove('on'));
+(function loop(){x+=(tx-x)*.2;y+=(ty-y)*.2;ring.style.transform=`translate3d(${x}px,${y}px,0)`;requestAnimationFrame(loop);})();
+}
+})();
+/* RZX-FX:END */
+</script>
 </body>
 </html>
