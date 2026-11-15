@@ -256,6 +256,17 @@ background:radial-gradient(520px circle at 0% 0%,rgba(18,60,132,.06),transparent
 #fx-bignum{color:#123c84;opacity:.06}
 /* RZX-FX:END */
 </style>
+<style id="rzx-sim">
+/* RZX-FX:START */
+
+#fx-panels .fx-p{display:none}
+.fx-pc{fill:#e4e4e7;transition:fill .5s}.fx-pd{fill:#cbd5e1;transition:fill .5s}
+.fx-pp.lit .fx-pc{fill:url(#fxPan)}.fx-pp.lit .fx-pd{fill:#0b2552}
+.fx-ps{opacity:0}.fx-pp.pop .fx-ps{animation:fxSheen .9s ease-out both}
+@keyframes fxSheen{0%{opacity:0;transform:translateX(-14px)}40%{opacity:.7}100%{opacity:0;transform:translateX(38px)}}
+@media(prefers-reduced-motion:reduce){.fx-pp.pop .fx-ps{animation:none}}
+/* RZX-FX:END */
+</style>
 </head>
 <body class="antialiased selection:bg-[#123c84]/20 selection:text-[#123c84]">
 
@@ -1450,6 +1461,30 @@ if(!box)return;
 const big=document.createElement('span');big.id='fx-bignum';big.setAttribute('aria-hidden','true');box.appendChild(big);
 const num=()=>{const m=(tag.textContent||'').match(/\d+/);big.textContent=m?m[0].padStart(2,'0'):'01';};num();
 new MutationObserver(()=>{num();box.classList.remove('fx-swap');void box.offsetWidth;box.classList.add('fx-swap');}).observe(ttl,{childList:true,characterData:true,subtree:true});
+})();
+/* RZX-FX:END */
+</script>
+<script id="rzx-sim-js">
+/* RZX-FX:START */
+(function(){
+const $=i=>document.getElementById(i),sl=$('bill-slider'),svg=$('fx-prog').ownerSVGElement,wrap=svg.parentElement,NS='http://www.w3.org/2000/svg';
+const mk=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const T=()=>Math.sqrt(Math.max(0,Math.min(1,(sl.value-sl.min)/(sl.max-sl.min))));
+const defs=()=>{let d=svg.querySelector('defs');if(!d){d=mk('defs',{});svg.prepend(d);}return d;};
+
+const gr=mk('linearGradient',{id:'fxPan',x1:0,y1:0,x2:1,y2:1});gr.append(mk('stop',{offset:0,'stop-color':'#2a5fc4'}),mk('stop',{offset:1,'stop-color':'#0d2d66'}));defs().appendChild(gr);
+const cp=mk('clipPath',{id:'fxClip'});cp.appendChild(mk('rect',{width:34,height:24,rx:2}));defs().appendChild(cp);
+const g=mk('g',{});svg.appendChild(g);g.appendChild(mk('ellipse',{cx:300,cy:147,rx:272,ry:3,fill:'rgba(13,45,102,.14)'}));
+const ps=[];
+for(let i=0;i<12;i++){const p=mk('g',{transform:`translate(${54+i*44},116) skewX(-16)`,class:'fx-pp'});
+ p.appendChild(mk('rect',{y:5,width:34,height:24,rx:2,class:'fx-pd'}));p.appendChild(mk('rect',{width:34,height:24,rx:2,class:'fx-pc'}));
+ [11.3,22.6].forEach(x=>p.appendChild(mk('line',{x1:x,x2:x,y1:0,y2:24,stroke:'rgba(255,255,255,.35)','stroke-width':.8})));
+ p.appendChild(mk('line',{x1:0,x2:34,y1:12,y2:12,stroke:'rgba(255,255,255,.35)','stroke-width':.8}));
+ const c=mk('g',{'clip-path':'url(#fxClip)'});c.appendChild(mk('rect',{x:0,y:-2,width:11,height:30,fill:'rgba(255,255,255,.6)',class:'fx-ps',transform:'skewX(-20)'}));p.appendChild(c);
+ g.appendChild(p);ps.push(p);}
+const upd=()=>{const on=2+Math.round(T()*10);ps.forEach((p,i)=>{const was=p.classList.contains('lit'),now=i<on;p.classList.toggle('lit',now);
+ if(now&&!was){p.style.setProperty('--d',i*40+'ms');p.classList.remove('pop');void p.getBoundingClientRect();p.classList.add('pop');p.querySelector('.fx-ps').style.animationDelay=i*40+'ms';}});};
+sl.addEventListener('input',upd);upd();
 })();
 /* RZX-FX:END */
 </script>
