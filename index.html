@@ -372,7 +372,10 @@ background:radial-gradient(520px circle at 0% 0%,rgba(18,60,132,.06),transparent
 <style id="rzx-fx-serv">
 /* RZX-FX:START */
 /* Etapas: brilho preso dentro das caixinhas */
-#processo .step-btn{overflow:hidden}
+#processo .step-btn{overflow:hidden;position:relative}
+#processo .spotlight-card{--spotlight-color:transparent}
+#processo .step-btn[class*="bg-[#123c84]/10"]{background:radial-gradient(130% 100% at 50% 0%,rgba(250,204,21,.3),rgba(250,204,21,.08) 75%)!important}
+#processo .step-btn:hover{background:radial-gradient(130% 100% at 50% 0%,rgba(250,204,21,.18),rgba(250,204,21,.04) 75%)}
 /* RZX-FX:END */
 </style>
 <style id="rzx-opt">
@@ -475,7 +478,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                 </h1>
 
                 <p class="text-base sm:text-lg text-zinc-700 max-w-2xl leading-relaxed">
-                    A <strong class="text-zinc-950 font-semibold">RZX Energy</strong> projeta, instala e mantém usinas solares para residências, empresas e propriedades rurais, com homologação na Equatorial Goiás.
+                    A <strong class="text-zinc-950 font-semibold">RZX Energy</strong> projeta, instala e mantém usinas solares para residências, empresas e propriedades rurais.
                 </p>
 
                 <!-- Botões de Ação -->
@@ -525,7 +528,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                             Descubra quanto você deixa de gastar todo ano.
                         </h2>
                         <p class="text-zinc-700 text-base leading-relaxed">
-                            Arraste o controle ao lado para informar o valor médio da sua conta de energia elétrica atual e veja uma estimativa realista de economia com a RZX Energy.
+                            Arraste o controle ao lado para informar o valor médio da sua conta de energia elétrica atual e veja uma estimativa realista de economia.
                         </p>
                         <ul class="space-y-3 text-sm text-zinc-800 pt-2">
                             <li class="flex items-center gap-2.5">
@@ -900,7 +903,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                         </div>
                         <h3 class="font-display font-bold text-lg mt-4 text-zinc-950">Manutenção e Diagnóstico</h3>
                         <p class="text-zinc-700 text-[15px] sm:text-base mt-2.5 leading-relaxed">
-                            Inspeção elétrica, reaperto de conectores, proteções, limpeza técnica dos módulos e reparo rápido, até em usinas de outras empresas.
+                            Inspeção elétrica, reaperto de conectores, proteções, limpeza técnica dos módulos e reparo rápido.
                         </p>
                     </div>
                     <div class="mt-5 pt-3 border-t border-zinc-200 flex items-center justify-between text-sm font-semibold text-[#123c84]">
@@ -988,7 +991,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                     Acompanhe cada etapa do seu projeto
                 </h2>
                 <p class="text-zinc-700 mt-3 text-base">
-                    Clique nas etapas abaixo para entender como conduzimos seu sistema do primeiro contato até a geração ativa.
+                    Clique nas etapas abaixo para entender como conduzimos o seu sistema até a geração ativa.
                 </p>
                 <div class="inline-flex items-center gap-2 mt-5 px-4 py-2.5 rounded-full bg-[#123c84] text-white text-sm font-semibold shadow-md shadow-[#123c84]/20">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 7v5l3 2"/></svg>
@@ -1048,7 +1051,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                             Visita Técnica e Dimensionamento Personalizado
                         </h3>
                         <p class="text-zinc-700 text-sm sm:text-base leading-relaxed" id="step-desc">
-                            Analisamos seu histórico de consumo nos últimos 12 meses, avaliamos a orientação e estrutura do telhado ou terreno e dimensionamos a potência ideal (kWp) para maximizar sua economia.
+                            Analisamos seu histórico de consumo, avaliamos a orientação e estrutura do telhado ou terreno e dimensionamos a potência ideal (kWp) para maximizar sua economia.
                         </p>
                     </div>
                     <div class="md:col-span-4 flex md:justify-end">
@@ -1151,7 +1154,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                     </svg>
                     <span>Enviar minha conta de luz</span>
                 </a>
-                <p class="mt-5 text-xs sm:text-sm text-white/80">Atendimento de segunda a sábado, das 8h às 18h · (64) 99213-7886</p>
+                <p class="mt-5 text-xs sm:text-sm text-white/80">Atendimento de segunda a sábado, das 8h às 18h</p>
             </div>
         </div>
     </section>
@@ -1316,7 +1319,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                 {
                     tag: 'Etapa 01 • Diagnóstico Inicial',
                     title: 'Visita Técnica e Dimensionamento Personalizado',
-                    desc: 'Analisamos seu histórico de consumo nos últimos 12 meses, avaliamos a orientação e estrutura do telhado ou terreno e dimensionamos a potência ideal (kWp) para maximizar sua economia.',
+                    desc: 'Analisamos seu histórico de consumo, avaliamos a orientação e estrutura do telhado ou terreno e dimensionamos a potência ideal (kWp) para maximizar sua economia.',
                     deliverable: 'Proposta Técnica & Estudo de Payback'
                 },
                 {
