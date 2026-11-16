@@ -306,9 +306,6 @@
 #sx-stage .sx-tk b{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(32px,8vw,46px);font-weight:800;color:#123c84;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
 #sx-stage #sx-sun{will-change:transform}
 .sx-pn .sx-pc{fill:#e4e4e7;transition:fill .5s}.sx-pn .sx-pd{fill:#cbd5e1;transition:fill .5s}.sx-pn.on .sx-pc{fill:url(#sxp)}.sx-pn.on .sx-pd{fill:#0b2552}.sx-pl{stroke:rgba(255,255,255,.35);stroke-width:.8;fill:none}
-.sx-coin{position:absolute;left:50%;top:34px;width:26px;height:26px;margin-left:-13px;border-radius:50%;background:#facc15;color:#7a5b00;font-weight:800;font-size:10px;line-height:26px;text-align:center;box-shadow:inset 0 0 0 2px #eab308;animation:sxcn 1.1s ease-out forwards;pointer-events:none}
-@keyframes sxcn{0%{transform:translate(0,12px) scale(.6);opacity:0}20%{opacity:1}100%{transform:translate(var(--dx,0),-80px) scale(1);opacity:0}}
-@media(prefers-reduced-motion:reduce){.sx-coin{display:none}}
 </style>
 <style id="rzx-fx">
 /* RZX-FX:START */
@@ -549,7 +546,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                         <div class="spotlight-card rounded-2xl p-6 sm:p-7 shadow-xl">
                             <!-- RZX-FX:START -->
                             <div id="sx-stage" class="mb-6 rounded-xl bg-[#f4f4f5] border border-zinc-200 px-3 pt-3 pb-4 relative overflow-hidden">
-                                <div class="sx-sh"><span>Veja 1 ano de usina</span><span id="sx-mo" aria-hidden="true">Jan</span><button type="button" id="sx-rp" class="sx-rp">↻ Rever</button></div>
+                                <div class="sx-sh"><span>Veja 1 ano de usina</span><span id="sx-mo" aria-hidden="true">Jan</span></div>
                                 <svg viewBox="0 0 600 150" class="w-full h-auto" aria-hidden="true"><defs><radialGradient id="sxg"><stop offset="0" stop-color="#fff6c2"/><stop offset=".45" stop-color="#facc15"/><stop offset="1" stop-color="#facc15" stop-opacity="0"/></radialGradient><linearGradient id="sxp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a5fc4"/><stop offset="1" stop-color="#0d2d66"/></linearGradient></defs>
                                     <path d="M40 104 A260 90 0 0 1 560 104" fill="none" stroke="#d4d4d8" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round"/>
                                     <path id="sx-prog" pathLength="1" d="M40 104 A260 90 0 0 1 560 104" fill="none" stroke="#123c84" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 1"/>
@@ -1627,7 +1624,7 @@ const sim=$('simulador');
 if(sim&&!reduce){const o=new IntersectionObserver(es=>{if(es[0].isIntersecting){o.disconnect();setTimeout(replay,250);}},{threshold:.35});o.observe(sim);}
 
 /* 2. Sol e painéis acompanham o slider */
-const sx={bill:$('bill-slider'),sun:$('sx-sun'),prog:$('sx-prog'),tk:$('sx-tk'),mo:$('sx-mo'),w:$('sx-tkw'),rp:$('sx-rp'),pans:$('sx-pans')};
+const sx={bill:$('bill-slider'),sun:$('sx-sun'),prog:$('sx-prog'),tk:$('sx-tk'),mo:$('sx-mo'),w:$('sx-tkw'),pans:$('sx-pans')};
 if(sx.bill&&sx.sun&&sx.pans){
  const NS='http://www.w3.org/2000/svg',MO=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],ps=[];
  for(let i=0;i<12;i++){const g=document.createElementNS(NS,'g');g.setAttribute('transform','translate('+(54+i*44)+',116) skewX(-16)');g.setAttribute('class','sx-pn');g.innerHTML='<rect y="5" width="34" height="24" rx="2" class="sx-pd"/><rect width="34" height="24" rx="2" class="sx-pc"/><path d="M11.3 0V24M22.6 0V24M0 12H34" class="sx-pl"/>';sx.pans.appendChild(g);ps.push(g);}
@@ -1635,10 +1632,8 @@ if(sx.bill&&sx.sun&&sx.pans){
  let raf=0,rt=0,ys=0;
  const T=()=>Math.sqrt(Math.max(0,Math.min(1,(sx.bill.value-sx.bill.min)/(sx.bill.max-sx.bill.min))));
  const paint=p=>{const a=Math.PI-p*Math.PI;sx.sun.setAttribute('transform','translate('+(300+260*Math.cos(a))+','+(104-90*Math.sin(a))+')');sx.prog.style.strokeDasharray=p.toFixed(3)+' 1';sx.tk.textContent=fmt(ys*p);sx.mo.textContent=p>=1?'1 ano completo':MO[Math.floor(p*12)];};
- const coin=()=>{const e=document.createElement('i');e.className='sx-coin';e.textContent='R$';e.style.setProperty('--dx',(Math.random()*80-40)+'px');sx.w.appendChild(e);setTimeout(()=>e.remove(),1100);};
- const play=()=>{cancelAnimationFrame(raf);if(rm){paint(1);return;}const t0=performance.now();let lm=-1;const st=t=>{const k=Math.min(1,(t-t0)/6500),m=Math.floor(k*12);if(m!==lm&&k<1){lm=m;coin();}paint(k);if(k<1)raf=requestAnimationFrame(st);};raf=requestAnimationFrame(st);};
- const upd=u=>{ys=parseFloat(sx.bill.value)*.93*12;const on=2+Math.round(T()*10);ps.forEach((g,i)=>g.classList.toggle('on',i<on));cancelAnimationFrame(raf);paint(1);clearTimeout(rt);rt=setTimeout(play,u?450:700);};
- sx.bill.addEventListener('input',()=>upd(true));sx.rp.addEventListener('click',play);upd(false);}
+ const upd=u=>{ys=parseFloat(sx.bill.value)*.93*12;const on=2+Math.round(T()*10);ps.forEach((g,i)=>g.classList.toggle('on',i<on));paint(1);};
+ sx.bill.addEventListener('input',()=>upd(true));upd(false);}
 
 if(!reduce){
 /* 4. Parallax do hero (rolagem em qualquer aparelho; mouse só no computador) */
