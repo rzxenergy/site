@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#123c84">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <title>RZX Energy | Engenharia e Energia Solar em Caldas Novas - GO</title>
     <meta name="description" content="Soluções completas em energia solar fotovoltaica, projetos, instalação, limpeza técnica, manutenção e homologação junto à Equatorial Goiás em Caldas Novas e região.">
@@ -478,7 +480,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                 </h1>
 
                 <p class="text-base sm:text-lg text-zinc-700 max-w-2xl leading-relaxed">
-                    A <strong class="text-zinc-950 font-semibold">RZX Energy</strong> projeta, instala e mantém usinas solares para residências, empresas e propriedades rurais.
+                    Projetamos, instalamos e mantemos usinas solares para residências, empresas e propriedades rurais.
                 </p>
 
                 <!-- Botões de Ação -->
@@ -528,7 +530,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                             Descubra quanto você deixa de gastar todo ano.
                         </h2>
                         <p class="text-zinc-700 text-base leading-relaxed">
-                            Arraste o controle ao lado para informar o valor médio da sua conta de energia elétrica atual e veja uma estimativa realista de economia.
+                            Arraste o controle ao lado para informar o valor médio da sua conta de energia atual e veja uma estimativa realista de economia.
                         </p>
                         <ul class="space-y-3 text-sm text-zinc-800 pt-2">
                             <li class="flex items-center gap-2.5">
@@ -692,7 +694,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                 <div class="spotlight-card rounded-2xl p-6 flex flex-col justify-between reveal">
                     <div>
                         <div class="-mx-6 -mt-6 mb-5 aspect-[16/10] overflow-hidden bg-zinc-200">
-                            <img src="obra-1.jpg" alt="Sistema solar residencial de alto padrão com 17 módulos de 620W" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                            <img src="obra-1.jpg" alt="Sistema solar residencial de alto padrão com 17 módulos de 620W" loading="lazy" decoding="async" class="w-full h-full object-cover" data-hide-on-error>
                         </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
                             <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84]">Residencial Alto Padrão</span>
@@ -719,7 +721,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                 <div class="spotlight-card rounded-2xl p-6 flex flex-col justify-between reveal">
                     <div>
                         <div class="-mx-6 -mt-6 mb-5 aspect-[16/10] overflow-hidden bg-zinc-200">
-                            <img src="obra-2.jpg" alt="Sistema solar em galpão comercial com 45 módulos de 620W" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                            <img src="obra-2.jpg" alt="Sistema solar em galpão comercial com 45 módulos de 620W" loading="lazy" decoding="async" class="w-full h-full object-cover" data-hide-on-error>
                         </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
                             <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84]">Comercial • Galpão</span>
@@ -746,7 +748,7 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                 <div class="spotlight-card rounded-2xl p-6 flex flex-col justify-between reveal">
                     <div>
                         <div class="-mx-6 -mt-6 mb-5 aspect-[16/10] overflow-hidden bg-zinc-200">
-                            <img src="obra-3.jpg" alt="Sistema solar residencial com 5 módulos de 620W" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'">
+                            <img src="obra-3.jpg" alt="Sistema solar residencial com 5 módulos de 620W" loading="lazy" decoding="async" class="w-full h-full object-cover" data-hide-on-error>
                         </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
                             <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-[#123c84]/10 text-[#123c84]">Residencial</span>
@@ -1431,7 +1433,8 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
 
                 // Consumo compensado (kWh) e potência necessária (kWp) pela fórmula: kWp = kWh / (0,80 * 5,20 * 30)
                 const targetKwh = monthlySaved / avgTariff;
-                const rawKwp = targetKwh / MONTHLY_KWH_PER_KWP;
+                const PROFILE_KWP_FACTOR = { 'Residencial': 1, 'Comercial': 1.075, 'Rural': 1.125 };
+                const rawKwp = (targetKwh / MONTHLY_KWH_PER_KWP) * (PROFILE_KWP_FACTOR[selectedProfile] || 1);
                 const estimatedKwp = rawKwp.toFixed(2).replace('.', ',');
 
                 // Payback competitivo dinâmico entre 20 meses (1 ano e 8 meses) e 30 meses (2 anos e 6 meses)
@@ -1518,12 +1521,18 @@ main:focus,main:focus-visible{outline:none!important;box-shadow:none!important}
                 modalTitle.textContent = title;
                 modalBadge.textContent = badge;
                 modalDesc.textContent = desc;
-                modalList.innerHTML = items.map(item => `
-                    <li class="flex items-start gap-2.5">
-                        <span class="w-5 h-5 rounded-full bg-[#123c84]/15 text-[#123c84] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">✓</span>
-                        <span>${item}</span>
-                    </li>
-                `).join('');
+                modalList.replaceChildren();
+                items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-start gap-2.5';
+                    const mark = document.createElement('span');
+                    mark.className = 'w-5 h-5 rounded-full bg-[#123c84]/15 text-[#123c84] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5';
+                    mark.textContent = '✓';
+                    const txt = document.createElement('span');
+                    txt.textContent = item;
+                    li.append(mark, txt);
+                    modalList.appendChild(li);
+                });
 
                 const msg = encodeURIComponent(`Olá RZX Energy! Gostaria de solicitar um orçamento para: ${title}.`);
                 modalWhatsapp.href = `https://wa.me/5564992137886?text=${msg}`;
@@ -1642,7 +1651,7 @@ if(sc){const ln=document.createElement('div');ln.className='fx-line';ln.innerHTM
 /* 7a. Títulos palavra por palavra */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('h-in');io.unobserve(e.target);}}),{threshold:.3});
 document.querySelectorAll('h2').forEach(h=>{if(h.children.length||h.hasAttribute('data-plain'))return;const t=h.textContent.trim();
- h.setAttribute('aria-label',t);h.innerHTML=t.split(/\s+/).map((w,i)=>`<span class="wd" aria-hidden="true"><span style="--i:${i}">${w}</span></span>`).join(' ');io.observe(h);});
+ h.setAttribute('aria-label',t);h.textContent='';t.split(/\s+/).forEach((w,i)=>{if(i>0)h.appendChild(document.createTextNode(' '));const o=document.createElement('span');o.className='wd';o.setAttribute('aria-hidden','true');const n=document.createElement('span');n.style.setProperty('--i',i);n.textContent=w;o.appendChild(n);h.appendChild(o);});io.observe(h);});
 
 /* 6. Cards com inclinação 3D (mouse passando ou dedo pressionando) */
 document.querySelectorAll('#servicos .spotlight-card,#obras .spotlight-card').forEach(c=>{
@@ -1740,6 +1749,12 @@ const run=el=>{const t=+el.dataset.count,d=1400,t0=performance.now();
 const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){run(e.target);o.unobserve(e.target);}}),{threshold:.6});
 els.forEach(el=>io.observe(el));
 })();
+</script>
+<script>
+(function(){document.querySelectorAll('img[data-hide-on-error]').forEach(function(img){
+var hide=function(){if(img.parentElement)img.parentElement.style.display='none';};
+img.addEventListener('error',hide);
+if(img.complete&&img.naturalWidth===0&&img.getAttribute('src'))hide();});})();
 </script>
 </body>
 </html>
