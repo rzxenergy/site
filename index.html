@@ -496,6 +496,18 @@ a.btn-wa{background-image:none!important;background-color:#10b981!important}
 /* "Transparência Total": mais verde do que azul */
 #processo .eyebrow-grad{background-image:linear-gradient(90deg,#164592 0%,#10b981 35%,#10b981 100%)!important}
 </style>
+<style id="rzx-ajuste5">
+/* Soluções Completas: só azul, sem verde */
+#servicos{background-image:linear-gradient(to bottom right,#164592,#15509a,#1a5ba8)!important}
+/* CTA final: só azul, sem verde no canto inferior direito */
+#cta-overlay{background-image:linear-gradient(to bottom right,rgba(18,60,132,.92) 0%,rgba(20,76,150,.9) 60%,rgba(22,80,160,.88) 100%)!important}
+#cta-final .bg-emerald-500\/20{background-color:rgba(56,130,220,.08)!important}
+/* Ícones verdes: degradê suave (mais claro para a cor atual), como o ícone laranja da Homologação */
+#pagamento .w-10.h-10.shrink-0.rounded-lg,
+#quem-somos .w-10.h-10.shrink-0.rounded-lg,
+.service-trigger[data-title^="Manuten"] .w-12.h-12,
+.service-trigger[data-title^="Projetos"] .w-12.h-12{background-color:#10b981!important;background-image:linear-gradient(135deg,#34d399 0%,#10b981 100%)!important}
+</style>
 </head>
 <body class="antialiased selection:bg-[#164592]/20 selection:text-[#164592]">
     <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
@@ -879,7 +891,7 @@ a.btn-wa{background-image:none!important;background-color:#10b981!important}
                             <img src="obra-3.jpg" alt="Sistema solar residencial com 5 módulos de 620W" loading="lazy" decoding="async" class="w-full h-full object-cover" data-hide-on-error>
                         </div>
                         <div class="flex items-center justify-between gap-2 mb-4">
-                            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-700">Residencial</span>
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/15 text-amber-700">Residencial</span>
                             <span class="text-xs font-mono font-bold text-zinc-950">3,10 kWp</span>
                         </div>
                         <h3 class="font-display font-bold text-lg text-zinc-950">Residência</h3>
@@ -903,7 +915,7 @@ a.btn-wa{background-image:none!important;background-color:#10b981!important}
     </section>
 
     <!-- Condições de Pagamento e Análise da Conta de Luz -->
-    <section id="pagamento" class="py-14 md:py-20 border-t border-zinc-200 bg-gradient-to-b from-[#f4f4f5] via-[#f4f4f5] to-emerald-50">
+    <section id="pagamento" class="py-14 md:py-20 border-t border-zinc-200 bg-[#f4f4f5]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-2xl reveal">
                 <span class="text-xs font-bold uppercase tracking-widest eyebrow-grad">Condições de Pagamento</span>
